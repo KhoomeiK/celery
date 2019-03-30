@@ -78,5 +78,3 @@ def ingredient(item, data, id):
 	}
 }
 '''
-
-app.run()
