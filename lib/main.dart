@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 void main() => runApp(new MyApp());
 
@@ -6,21 +8,96 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+     SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    return new Scaffold(
+    //  key: _scaffoldstate,
+      appBar: AppBar(
+        title: new Padding(
+            child: new Text("Navigation",
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontFamily: "Rajdhani",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 25.0)),
+            padding: const EdgeInsets.only(left: 0.0)),
+        actions: <Widget>[
+          Container(
+              padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(Icons.account_box),
+              )),
+          SizedBox(width: 17.0),
+        ],
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Flex(
+              direction: Axis.vertical,
+              children: <Widget>[],
+            )
+          ],
+        ),
+      ),
+      drawer: _buildDrawer(),
+     // bottomNavigationBar: _buildBottomNav(),
     );
+  }
+
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+        child: ListView(
+      children: <Widget>[
+        DrawerHeader(
+          child: Row(
+            children: <Widget>[
+              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
+              SizedBox(width: 25.0),
+              Text("Hi, Ryan",
+                  style: TextStyle(
+                      fontFamily: "Rajdhani",
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold))
+            ],
+          ),
+        ),
+        ListTile(
+            title: Text("Vibrational Levels",
+                style: TextStyle(fontFamily: "Rajdhani")),
+            onTap: () {
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => VibPage()));
+            }),
+        ListTile(
+            title: Text("Haptic Patterns",
+                style: TextStyle(fontFamily: "Rajdhani")),
+            onTap: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => HapticPage()));
+            }),
+        ListTile(
+            title: Text("Rerun Tutorial",
+                style: TextStyle(fontFamily: "Rajdhani")),
+            onTap: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => TutorialPage()));
+            }),
+        ListTile(
+            title: Text("Settings", style: TextStyle(fontFamily: "Rajdhani")),
+            onTap: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => SettingsPage()));
+            }),
+        ListTile(title: Text("Help", style: TextStyle(fontFamily: "Rajdhani"))),
+        ListTile(
+            title: Text("About Us", style: TextStyle(fontFamily: "Rajdhani"))),
+      ],
+    ));
   }
 }
 
