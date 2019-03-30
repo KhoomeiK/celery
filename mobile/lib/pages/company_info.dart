@@ -11,12 +11,13 @@ import 'analysis.dart';
 import 'profile.dart';
 import 'category.dart';
 import 'produce.dart';
+import 'package:intl/intl.dart';
 
-class SocialPage extends StatefulWidget {
-  State createState() => new SocialPageState();
+class CompanyInfoPage extends StatefulWidget {
+  State createState() => new CompanyInfoPageState();
 }
 
-class SocialPageState extends State<SocialPage> {
+class CompanyInfoPageState extends State<CompanyInfoPage> {
 int index = 0;
 List<Category> list = globals.three;
   Widget _buildBottomNav() {
@@ -142,26 +143,36 @@ List<Category> list = globals.three;
         ],
       ),
       body: 
-        PageView(children: <Widget>[
-        new CustomScrollView(
-                      primary: false,
-                      slivers: <Widget>[
-                        new SliverPadding(
-                          padding: const EdgeInsets.all(10.0),
-                          sliver: new SliverGrid.count(
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
-                            crossAxisCount: 1,
-                            children:
-                                listSuppliers(list, context),
-                          ),
-                        ),
-                      ],
-                    
-        // _buildRow1(),
-        // _buildRow2(),
-    ),
-      ],),
+        Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+          child: SizedBox(
+            height: 200.0,
+            child: new ListView(
+              children: <Widget>[
+                // ListTile(
+                //   title: new Text(
+                //   globals.chosen.company, )
+                // ),
+                // ListTile(
+                //   title: new Text(
+                //     globals.chosen.phone,
+                //   ),
+                // ),
+                // ListTile(
+                //   title: new Text(
+                //     NumberFormat().format(globals.chosen.rating),
+                //   )
+                // ),
+              ],
+            )
+          ),
+        ),
+        
+      ],
+    )),
       drawer: _buildDrawer(),
       bottomNavigationBar: _buildBottomNav(),
     );

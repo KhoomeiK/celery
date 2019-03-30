@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'recents.dart';
 import 'food_icon.dart';
-import 'stats5.dart';
-import 'stats6.dart';
 import 'globals.dart' as globals;
 import 'home_page.dart';
 

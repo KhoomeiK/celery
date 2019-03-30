@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'food_icon.dart';
 import 'stats_page.dart';
-import 'stats5.dart';
-import 'stats6.dart';
 import "package:flutter/services.dart";
 import 'globals.dart' as globals;
 import 'analysis.dart';

@@ -6,11 +6,10 @@ import 'food_icon.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'recents.dart';
 import 'stats_page.dart';
-import 'stats5.dart';
-import 'stats6.dart';
 import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
+import 'profile.dart';
 
 class ProducePage extends StatefulWidget {
   State createState() => new ProducePageState();
@@ -147,8 +146,36 @@ List<Food_icon> list = globals.global;
           SizedBox(width: 17.0),
         ],
       ),
-      body: 
-        PageView(children: <Widget>[
+      body:
+      //         Container(
+      //   padding: EdgeInsets.all(20.0),
+      //   child: Column(
+      //     children: <Widget>[
+      //       Expanded(
+      //     child: SizedBox(
+      //       height: 200.0,
+      //       child: new ListView.builder(
+      //         scrollDirection: Axis.vertical,
+      //         itemCount: globals.chosenNigga.length,
+      //         itemBuilder: (BuildContext ctxt, int index) {
+      //           return new Center( 
+      //             child: ListTile(
+      //               title: new Text(globals.chosenNigga[index].company),
+      //               onTap: () {
+      //                 globals.chosen = globals.chosenNigga[index];
+      //                 // Navigator.push(context,
+      //                 //  MaterialPageRoute(builder: (context) => StatsPage()));
+      //               },
+      //               ));
+      //           },
+      //       ),
+      //     ),
+      //   ),
+        
+      // ],
+      // ),
+      // ),
+      PageView(children: <Widget>[
         new CustomScrollView(
                       primary: false,
                       slivers: <Widget>[
@@ -157,41 +184,39 @@ List<Food_icon> list = globals.global;
                           sliver: new SliverGrid.count(
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
-                            crossAxisCount: 2,
+                            crossAxisCount: 1,
                             children:
-                                listFoods(list, context),
+                                listSup(globals.chosenNigga, context),
                           ),
                         ),
                       ],
-                    
-        // _buildRow1(),
-        // _buildRow2(),
-    ),
-      ],),
+        ),
+      ],
+      ),
       drawer: _buildDrawer(),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  List<Widget> listFoods(
-    List<Food_icon> food, BuildContext context) {
+  List<Widget> listSup(
+    List<Profile> bro, BuildContext context) {
   // Children list for the list.
   List<Widget> listElementWidgetList = new List<Widget>();
-  if (food != null) {
-    var lengthOfList = list.length;
+  if (bro != null) {
+    var lengthOfList = bro.length;
     for (int i = 0; i < lengthOfList; i++) {
-     Food_icon food = list[i];
+     Profile temp = bro[i];
       // Image URL
-      var imageURL = food.imagePath;
+      var imageURL = temp.imagePath;
       // List item created with an image of the poster
       var listItem = new GridTile(
           footer: new GridTileBar(
             backgroundColor: Colors.black45,
-            title: new Text(food.name),
+            title: new Text(temp.company),
           ),
           child: new GestureDetector(
             onTap: () {
-              globals.global_name = food.name;
+              globals.chosen = temp;
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
@@ -210,77 +235,3 @@ List<Food_icon> list = globals.global;
 }
 }
  
-_buildRow1() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                 Stack(
-                  children: <Widget>[
-                    Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),
-                       Center(child: Text("someText")),
-                            ],
-                      ),
-            ),
-                  
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-                   
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
-
-}
-
-
-_buildRow2() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                  Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-      
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),),
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
-
-}
-
