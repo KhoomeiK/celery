@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'recents.dart';
 import 'food_icon.dart';
-import 'stats5.dart';
-import 'stats6.dart';
 import 'globals.dart' as globals;
 import 'home_page.dart';
 import 'analysis.dart';
+import 'chart.dart';
 
 class StatsPage extends StatefulWidget {
   State createState() => new StatsPageState();
@@ -165,7 +164,7 @@ int index = 0;
                     fontSize: 25.0)),
         new Padding(
           padding: EdgeInsets.all(15.0),
-          child: new Image.network(globals.getImageURL(globals.global_name)),
+          child: SimpleTimeSeriesChart.withSampleData(),//new Image.network(globals.getImageURL(globals.global_name)),
         ),
         new Padding(
           padding: EdgeInsets.all(15.0),
