@@ -8,13 +8,16 @@ conn_str = "host='localhost' user='postgres' password='password'"
 def menu(id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
-	items = cursor.execute('SELECT name, profit, sust FROM %s WHERE type = "item"' % id)
-
-	print(items)
+	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
+	data = cursor.fetchall()
+        items = {}
+	for i in data:
+		items[i[0]] = {'profit': float(i[1][-1]) - float(i[1][-2]), 'sust': float(i[2][-1]) - float(i[2][-2])}
+                
 	# find all type: item in db id
 	# compare last 2 data points in parsed profit & sust
 	conn.close()
-	return str({'items': items})
+	return str(items)
 '''
 {
 	items: [
