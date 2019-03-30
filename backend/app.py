@@ -6,7 +6,7 @@ app = Flask(__name__)
 def menu(id):
 	# find all type: item in db id
 	# compare last 2 data points in parsed profit & sust
-    return 'Hello %s' % id
+    return [id]
 '''
 {
 	items: [
@@ -31,7 +31,7 @@ def item(item, id):
 	# find item in db id
 	# get composite prof, sust, and buys of item
 	# parse arrays
-    return 'Hello %s' % item
+    return [item, id]
 
 '''
 {
@@ -58,7 +58,7 @@ def ingredient(item, data, id):
 	# parse item data into ingredient list
 	# find temporal data of each ingredient (last is prediction)
 	# compare last 2 data points to determine color
-    return 'Hello %s' % ingredient
+    return [item, data, id]
 
 '''
 {
