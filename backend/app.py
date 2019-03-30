@@ -10,7 +10,7 @@ def menu(id):
 	cursor = conn.cursor()
 	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
 	data = cursor.fetchall()
-        items = {}
+	items = {}
 	for i in data:
 		items[i[0]] = {'profit': float(i[1][-1]) - float(i[1][-2]), 'sust': float(i[2][-1]) - float(i[2][-2])}
                 
