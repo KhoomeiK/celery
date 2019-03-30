@@ -14,7 +14,7 @@ def menu(id):
 	# find all type: item in db id
 	# compare last 2 data points in parsed profit & sust
 	conn.close()
-    return str({'items': items})
+	return str({'items': items})
 '''
 {
 	items: [
