@@ -6,7 +6,7 @@ app = Flask(__name__)
 def menu(id):
 	# find all type: item in db id
 	# compare last 2 data points in parsed profit & sust
-    return {[id]}
+    return str({'linguini':[id]})
 '''
 {
 	items: [
