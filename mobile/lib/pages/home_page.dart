@@ -6,8 +6,6 @@ import 'food_icon.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'recents.dart';
 import 'stats_page.dart';
-import 'stats5.dart';
-import 'stats6.dart';
 import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
