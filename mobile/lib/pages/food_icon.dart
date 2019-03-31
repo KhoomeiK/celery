@@ -29,11 +29,3 @@
 
   Food_icon(this.name,this.imagePath, this.rest, this.cost, this.ingredients);
 }*/
-
-class Ingredient {
-  String ingredientName; 
-  bool color; 
-  List<double> data; 
-
-  Ingredient(this.ingredientName, this.color, this.data);
-}

@@ -197,6 +197,11 @@ class StatsPageState extends State<StatsPage> {
                   ],
                 );
               }
+              else {
+                return new Center(
+                  child: new CircularProgressIndicator()
+                );
+              }
             }),
       ]),
       drawer: _buildDrawer(),
@@ -233,7 +238,7 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(),
+                        builder: (_) => new DetailPage(this.name),
                       ));
                 },
                 child: Stack(children: <Widget>[
@@ -294,7 +299,7 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(),
+                        builder: (_) => new DetailPage(this.name),
                       ));
                 },
                 child: Stack(children: <Widget>[
@@ -355,7 +360,7 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(),
+                        builder: (_) => new DetailPage(this.name),
                       ));
                 },
                 child: Stack(children: <Widget>[

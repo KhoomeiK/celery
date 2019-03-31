@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import psycopg2
 
 app = Flask(__name__)
@@ -127,10 +127,11 @@ POST endpoint to accept new menu items
 }
 '''
 
-@app.route('/biz/new/<id>') # post req new menu item
+# THIS NEEDS TO BE TESTED
+@app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
 def new(id):
-	ingredients = request.ingredients
-	print(ingredients) 
+	req = request.get_json()
+	ingredients = req['ingredients']
 	profit, sust, buys = [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]
 	conn = psycopg2.connect(conn_str, dbname='foods')
 	cursor = conn.cursor()
@@ -143,7 +144,17 @@ def new(id):
 			profit[j] = profit[j] + x[j][0]
 			sust[j] = sust[j] + x[j][1]
 
-	print(profit)
-	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', '%s', '%s', '%s', '%s')" 
-		% (id, request.name, ingredients, profit, sust, buys))
 	conn.close()
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO multi (type, name, ingredients, profit, sust, buys) VALUES (\'item\', %s, %s, %s, %s, %s)', (req['name'], ingredients, profit, sust, buys))
+
+	# arr = str(ingredients).replace("'", '\\"').replace("[", "{").replace("]", "}")
+	# profit = str(profit).replace("[", "{").replace("]", "}")
+	# sust = str(sust).replace("[", "{").replace("]", "}")
+	# buys = str(buys).replace("[", "{").replace("]", "}")
+	# cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \'%s\', '%s', '%s', '%s')" 
+		# % (id, req['name'], arr, profit, sust, buys))
+	conn.commit()
+	conn.close()
+	return 'Item succesfully created'

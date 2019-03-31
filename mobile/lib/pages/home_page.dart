@@ -168,6 +168,9 @@ class HomePageState extends State<HomePage> {
                   ],
                 );
               } else if (snapshot.hasError) {
+                return Center(
+                  child: CircularProgressIndicator()
+                );
               } else {
                 return Center(
                   child: CircularProgressIndicator()
