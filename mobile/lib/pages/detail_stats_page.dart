@@ -9,11 +9,10 @@ import 'home_page.dart';
 import 'analysis.dart';
 import 'chart.dart';
 import "detail_graph.dart";
-import "detail_stats_page.dart";
 
-class StatsPage extends StatefulWidget {
-  State createState() => new StatsPageState();
-  StatsPage();
+class DetailPage extends StatefulWidget {
+  State createState() => new DetailPageState();
+  DetailPage();
   static String name;
   static String imageURL;
   static String rest;
@@ -22,7 +21,7 @@ class StatsPage extends StatefulWidget {
   List<String> ingredients;
 }
 
-class StatsPageState extends State<StatsPage> {
+class DetailPageState extends State<DetailPage> {
   int index = 0;
   String name;
   String imageURL;
@@ -30,7 +29,7 @@ class StatsPageState extends State<StatsPage> {
   double cost;
   List<String> ingredients;
 
-  List<Detail_graph> list = globals.graphs;
+  List<Detail_graph> list = globals.detail_graphs;
 
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
@@ -136,7 +135,7 @@ class StatsPageState extends State<StatsPage> {
     return new Scaffold(
       appBar: AppBar(
         title: new Padding(
-            child: new Text("Statistics",
+            child: new Text("Detail",
                 style: new TextStyle(
                     fontWeight: FontWeight.normal,
                     fontFamily: "Rajdhani",
@@ -197,7 +196,7 @@ class StatsPageState extends State<StatsPage> {
                         context,
                         // change this from StatsPage to the detailstatspage or whatever
                         new MaterialPageRoute(
-                          builder: (_) => new DetailPage(),
+                          builder: (_) => new HomePage(),
                         ));
                   },
                   child: Stack(children: <Widget>[
