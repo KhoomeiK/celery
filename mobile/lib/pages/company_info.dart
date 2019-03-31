@@ -152,20 +152,20 @@ List<Category> list = globals.three;
             height: 200.0,
             child: new ListView(
               children: <Widget>[
-                // ListTile(
-                //   title: new Text(
-                //   globals.chosen.company, )
-                // ),
-                // ListTile(
-                //   title: new Text(
-                //     globals.chosen.phone,
-                //   ),
-                // ),
-                // ListTile(
-                //   title: new Text(
-                //     NumberFormat().format(globals.chosen.rating),
-                //   )
-                // ),
+                ListTile(
+                  title: new Text(
+                  globals.chosen.company, )
+                ),
+                ListTile(
+                  title: new Text(
+                    globals.chosen.phone,
+                  ),
+                ),
+                ListTile(
+                  title: new Text(
+                    NumberFormat().format(globals.chosen.rating),
+                  )
+                ),
               ],
             )
           ),
@@ -178,117 +178,6 @@ List<Category> list = globals.three;
     );
   }
 
-  List<Widget> listSuppliers(
-    List<Category> suppliers, BuildContext context) {
-  // Children list for the list.
-  List<Widget> listElementWidgetList = new List<Widget>();
-  if (suppliers != null) {
-    var lengthOfList = list.length;
-    for (int i = 0; i < lengthOfList; i++) {
-     Category companySeller = list[i];
-      // Image URL;
-      var imageURL = companySeller.imagePath;
-      // List item created with an image of the poster
-      var listItem = new GridTile(
-          footer: new GridTileBar(
-            backgroundColor: Colors.black45,
-            title: new Text(companySeller.name),
-          ),
-          child: new GestureDetector(
-            onTap: () {{
-                globals.global_company = companySeller.name;
-                globals.checkChosen();
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new ProducePage(),
-                  )
-                );}},
-              child: new FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: imageURL,
-              fit: BoxFit.cover,
-            ),
-              
-        ));
-      listElementWidgetList.add(listItem);
-    }
-  }
-  return listElementWidgetList;
-}
-}
  
-_buildRow1() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                 Stack(
-                  children: <Widget>[
-                    Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),
-                       Center(child: Text("someText")),
-                            ],
-                      ),
-            ),
-                  
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-                   
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
-
-}
-
-
-_buildRow2() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                  Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-      
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),),
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
-
 }
 
