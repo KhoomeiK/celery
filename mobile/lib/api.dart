@@ -93,6 +93,8 @@ Future<Food_icon> getDishDetail(String item, String id) async {
     List<dynamic> list3 = data["buys"];
     dishBuysData = list3.cast<int>().toList();
 
+    print("Hello");
+
     print(dishProfitData);
     var profitPrediction = dishProfitData[dishProfitData.length - 1] -
         dishProfitData[dishProfitData.length - 2];

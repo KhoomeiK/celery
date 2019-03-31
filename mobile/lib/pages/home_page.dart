@@ -201,11 +201,12 @@ class HomePageState extends State<HomePage> {
               ),
               child: new GestureDetector(
                   onTap: () {
-                    globals.global_name = food.name;
+                    print(food.name);
+                    print("food above");
                     Navigator.push(
                         context,
                         new MaterialPageRoute(
-                          builder: (_) => new StatsPage(),
+                          builder: (_) => new StatsPage(food.name),
                         ));
                   },
                   child: Stack(

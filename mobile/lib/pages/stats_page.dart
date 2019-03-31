@@ -14,14 +14,14 @@ import 'package:celery/api.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class StatsPage extends StatefulWidget {
-  State createState() => new StatsPageState();
-  StatsPage();
-  static String name;
+  String name;
   static String imageURL;
   static String rest;
   static double cost;
   static String foodName;
   List<String> ingredients;
+  StatsPage(this.name);
+    State createState() => new StatsPageState(name);
 }
 
 class StatsPageState extends State<StatsPage> {
@@ -31,8 +31,10 @@ class StatsPageState extends State<StatsPage> {
   String rest;
   double cost;
   List<String> ingredients;
-
+  
   List<Detail_graph> list = globals.graphs;
+
+  StatsPageState(this.name);
 
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
@@ -134,6 +136,8 @@ class StatsPageState extends State<StatsPage> {
   @override
   Widget build(BuildContext context) {
     //showMap();
+    print(this.name);
+    print("from state");
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return new Scaffold(
@@ -149,7 +153,7 @@ class StatsPageState extends State<StatsPage> {
       ),
       body: PageView(children: <Widget>[
         new FutureBuilder(
-            future: getDishDetail("Kungpao", "multi"),
+            future: getDishDetail(this.name, "multi"),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Food_icon preProcessed = snapshot.data;
@@ -303,7 +307,7 @@ class StatsPageState extends State<StatsPage> {
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
                           measureFn: (LinearSales sales, _) => sales.sales,
-                          data: graphs,
+                          data: graphs2,
                         )
                       ].toList(),
                       animate: true,
@@ -364,7 +368,7 @@ class StatsPageState extends State<StatsPage> {
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
                           measureFn: (LinearSales sales, _) => sales.sales,
-                          data: graphs,
+                          data: graphs3,
                         )
                       ].toList(),
                       animate: true,
