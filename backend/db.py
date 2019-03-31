@@ -47,7 +47,7 @@ INSERT INTO tomato (month, profit, sust)
 VALUES ('2019-1', 3.5, 1.2)
 
 
-COPY beef FROM '/home/rohan/celery/backend/data/finalCow.csv' WITH (FORMAT csv);
+COPY tomato FROM '/home/rohan/celery/backend/data/finalTomato.csv' WITH (FORMAT csv);
 '''
 
 # limit csv to 12 entries, 1 prediction
