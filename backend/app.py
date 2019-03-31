@@ -126,4 +126,12 @@ POST endpoint to accept new menu items
 }
 '''
 
-# @app.route('/biz/new')
+@app.route('/biz/new/<id>') # post req new menu item
+def new(id):
+	print(request.ingredients)
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+
+	cursor.execute("INSERT INTO %s (type, name, ingredients) VALUES('item', %s, %s)" 
+		% (id, request.name, request.ingredients))
+	conn.close()
