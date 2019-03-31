@@ -155,5 +155,6 @@ def new(id):
 	# buys = str(buys).replace("[", "{").replace("]", "}")
 	# cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \'%s\', '%s', '%s', '%s')" 
 		# % (id, req['name'], arr, profit, sust, buys))
+	conn.commit()
 	conn.close()
 	return 'Item succesfully created'
