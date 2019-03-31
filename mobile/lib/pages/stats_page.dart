@@ -61,8 +61,8 @@ class StatsPageState extends State<StatsPage> {
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -154,7 +154,14 @@ class StatsPageState extends State<StatsPage> {
       body: PageView(children: <Widget>[
         new FutureBuilder(
             future: getDishDetail(this.name, "multi"),
-            builder: (context, snapshot) {
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              return new CircularProgressIndicator();
+                  case ConnectionState.active:
+                  case ConnectionState.done:
+              }
               if (snapshot.hasData) {
                 Food_icon preProcessed = snapshot.data;
                 List<LinearSales> list1 = [];
