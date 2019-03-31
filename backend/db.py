@@ -34,4 +34,11 @@ VALUES ('item', 'Linguini',
 	'{2.4, 3.5, 3.0, 4.1, 2.9}',
 	'{1, 4, 2, 3, 3}', 
 	'{14, 19, 12, 9, 21}');
+
+INSERT INTO olives (type, name, ingredients, profit, sust, buys) 
+VALUES ('item', 'Tiramisu', 
+	'{{"milk", 3}, {"egg", 2}, {"wheat", 2}}',
+	'{2.4, 2.9, 4.1, 3.0, 3.5}',
+	'{1, 3, 3, 4, 2}',
+	'{12, 9, 21, 14, 19}');
 '''

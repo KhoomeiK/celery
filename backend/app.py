@@ -8,16 +8,17 @@ conn_str = "host='localhost' user='postgres' password='password'"
 def menu(id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
+	
 	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
 	data = cursor.fetchall()
+	
 	items = {}
 	for i in data:
 		items[i[0]] = {'profit': float(i[1][-1]) - float(i[1][-2]), 'sust': float(i[2][-1]) - float(i[2][-2])}
-                
-	# find all type: item in db id
-	# compare last 2 data points in parsed profit & sust
+	
 	conn.close()
 	return str(items)
+
 '''
 {
 	items: [
@@ -39,10 +40,19 @@ def menu(id):
 
 @app.route('/biz/item/<item>/<id>')
 def item(item, id):
-	# find item in db id
-	# get composite prof, sust, and buys of item
-	# parse arrays
-    return {[item, id]}
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	
+	cursor.execute("SELECT profit, sust, buys FROM %s WHERE type = 'item' AND name = %s" % (id, item))
+	data = cursor.fetchall()
+	
+	return str({
+		item: {
+			profit: data[0][0],
+			sust: data[0][1],
+			buys: data[0][2]
+		}
+	})
 
 '''
 {
@@ -69,7 +79,7 @@ def ingredient(item, data, id):
 	# parse item data into ingredient list
 	# find temporal data of each ingredient (last is prediction)
 	# compare last 2 data points to determine color
-    return {[item, data, id]}
+	return {[item, data, id]}
 
 '''
 {
