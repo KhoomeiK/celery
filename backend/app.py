@@ -135,7 +135,6 @@ POST endpoint to accept new menu items
 @app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
 def new(id):
 	req = request.get_json()
-	print(req)
 	ingredients = req['ingredients']
 	profit, sust, buys = [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]
 	conn = psycopg2.connect(conn_str, dbname='foods')
@@ -149,8 +148,9 @@ def new(id):
 			profit[j] = profit[j] + x[j][0]
 			sust[j] = sust[j] + x[j][1]
 
-	print(profit)
-	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', '%s', '%s', '%s', '%s')" 
-		% (id, req['name'], ingredients, profit, sust, buys))
+	print()
+	arr = str(x['ingredients']).replace("'", '"').replace("[", "{").replace("]", "}")
+	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \"%s\", '%s', '%s', '%s')" 
+		% (id, req['name'], arr, profit, sust, buys))
 	conn.close()
 
