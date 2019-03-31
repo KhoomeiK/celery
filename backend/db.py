@@ -35,10 +35,8 @@ VALUES ('item', 'Linguini',
 	'{1, 4, 2, 3, 3}', 
 	'{14, 19, 12, 9, 21}');
 
-INSERT INTO olives (type, name, ingredients, profit, sust, buys) 
-VALUES ('item', 'Tiramisu', 
-	'{{"milk", 3}, {"egg", 2}, {"wheat", 2}}',
-	'{2.4, 2.9, 4.1, 3.0, 3.5}',
-	'{1, 3, 3, 4, 2}',
-	'{12, 9, 21, 14, 19}');
+CREATE TABLE tomato (month TEXT, profit FLOAT, sust FLOAT);
+
+INSERT INTO tomato (month, profit, sust) 
+VALUES ('2019-1', 3.5, 1.2)
 '''

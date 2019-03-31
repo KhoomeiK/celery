@@ -11,6 +11,7 @@ import 'analysis.dart';
 import 'profile.dart';
 import 'category.dart';
 import 'produce.dart';
+import 'home_page.dart';
 
 class SocialPage extends StatefulWidget {
   State createState() => new SocialPageState();
@@ -24,6 +25,10 @@ List<Category> list = globals.three;
       currentIndex: 0,
       onTap: (index) {
         this.index = index;
+        if (index == 0) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
         if (index == 1) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AnalysisPage()));
@@ -43,8 +48,8 @@ List<Category> list = globals.three;
           title: new Text("Statistics"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.restaurant_menu),
-          title: new Text("Full Menu"),
+          icon: new Icon(Icons.people),
+          title: new Text("Suppliers"),
         ),
       ],
     );
@@ -131,15 +136,6 @@ List<Category> list = globals.three;
                     fontStyle: FontStyle.normal,
                     fontSize: 25.0)),
             padding: const EdgeInsets.only(left: 0.0)),
-        actions: <Widget>[
-          Container(
-              padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Icon(Icons.account_box),
-              )),
-          SizedBox(width: 17.0),
-        ],
       ),
       body: 
         PageView(children: <Widget>[

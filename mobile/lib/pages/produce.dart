@@ -11,6 +11,7 @@ import 'analysis.dart';
 import 'Social.dart';
 import 'profile.dart';
 import 'company_info.dart';
+import 'home_page.dart';
 
 class ProducePage extends StatefulWidget {
   State createState() => new ProducePageState();
@@ -24,13 +25,17 @@ List<Food_icon> list = globals.global;
       currentIndex: 0,
       onTap: (index) {
         this.index = index;
+        if (index == 0) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
         if (index == 1) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AnalysisPage()));
         }
         if (index == 2) {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => BluetoothPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SocialPage()));
         }
       },
       items: <BottomNavigationBarItem>[
@@ -43,8 +48,8 @@ List<Food_icon> list = globals.global;
           title: new Text("Statistics"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.restaurant_menu),
-          title: new Text("Full Menu"),
+          icon: new Icon(Icons.people),
+          title: new Text("Suppliers"),
         ),
       ],
     );
@@ -131,21 +136,7 @@ List<Food_icon> list = globals.global;
                     fontStyle: FontStyle.normal,
                     fontSize: 25.0)),
             padding: const EdgeInsets.only(left: 0.0)),
-        actions: <Widget>[
-          Container(
-              padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new SocialPage(),
-                  ));
-                },
-                child: Icon(Icons.account_box),
-              )),
-          SizedBox(width: 17.0),
-        ],
+      
       ),
       body:
       //         Container(
