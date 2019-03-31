@@ -75,8 +75,9 @@ class DetailPageState extends State<DetailPage> {
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
-              SizedBox(width: 25.0),
+              SizedBox(width: 20.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
+              SizedBox(width: 20.0),
               Text("Celery",
                   style: TextStyle(
                       fontFamily: "Rajdhani",

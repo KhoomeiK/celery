@@ -7,6 +7,7 @@ import './pages/recents.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+    AssetImage s = AssetImage('assets/logo.png');
   @override
   void initState() {
     super.initState();
@@ -73,9 +75,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundColor: Colors.blueAccent,
                       radius: 80.0,
-                      // child: _image(),
+                      child: _image(),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 15.0),
@@ -114,6 +115,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+_image() {
+    return Image.asset('assets/logo.png');
+  }
+
   Widget _buildDrawer() {
     return Drawer(
         child: ListView(
@@ -121,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
               SizedBox(width: 25.0),
               Text("Hi, Ryan",
                   style: TextStyle(
