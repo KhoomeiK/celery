@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import psycopg2
 
 app = Flask(__name__)
@@ -130,7 +130,8 @@ POST endpoint to accept new menu items
 # THIS NEEDS TO BE TESTED
 @app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
 def new(id):
-	ingredients = request.ingredients
+	req = request.get_json()
+	ingredients = req.ingredients
 	print(ingredients) 
 	profit, sust, buys = [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]
 	conn = psycopg2.connect(conn_str, dbname='foods')
@@ -146,6 +147,6 @@ def new(id):
 
 	print(profit)
 	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', '%s', '%s', '%s', '%s')" 
-		% (id, request.name, ingredients, profit, sust, buys))
+		% (id, req.name, ingredients, profit, sust, buys))
 	conn.close()
 
