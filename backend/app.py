@@ -127,7 +127,8 @@ POST endpoint to accept new menu items
 }
 '''
 
-@app.route('/biz/new/<id>') # post req new menu item
+# THIS NEEDS TO BE TESTED
+@app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
 def new(id):
 	ingredients = request.ingredients
 	print(ingredients) 
@@ -147,3 +148,4 @@ def new(id):
 	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', '%s', '%s', '%s', '%s')" 
 		% (id, request.name, ingredients, profit, sust, buys))
 	conn.close()
+
