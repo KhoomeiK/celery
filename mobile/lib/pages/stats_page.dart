@@ -8,6 +8,7 @@ import 'globals.dart' as globals;
 import 'home_page.dart';
 import 'analysis.dart';
 import 'chart.dart';
+import "detail_graph.dart";
 
 class StatsPage extends StatefulWidget {
   State createState() => new StatsPageState();
@@ -16,6 +17,7 @@ class StatsPage extends StatefulWidget {
   static String imageURL;
   static String rest;
   static double cost;
+  static String foodName;
   List<String> ingredients;
 }
 
@@ -26,6 +28,9 @@ class StatsPageState extends State<StatsPage> {
   String rest;
   double cost;
   List<String> ingredients;
+
+  List<Detail_graph> list = globals.graphs;
+
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
       currentIndex: 0,
@@ -147,82 +152,78 @@ class StatsPageState extends State<StatsPage> {
           SizedBox(width: 17.0),
         ],
       ),
-      body: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: <Widget>[
-              new Text(globals.global_name,
-                  style: new TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Rajdhani",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 25.0)),
-              new Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Container(
-                  width: 400,
-                  height: 100,
-                  child: SimpleTimeSeriesChart
-                      .withSampleData(), //new Image.network(globals.getImageURL(globals.global_name)),
-                ),
-              ),
-              new Padding(
-                padding: EdgeInsets.all(15.0),
-                child: new Text("Ingredients",
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Rajdhani",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15.0)),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: 250.0,
-                  child: new ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount:
-                        globals.getIngredients(globals.global_name).length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return new Center(
-                          child: Text(globals
-                              .getIngredients(globals.global_name)[index]));
-                    },
-                  ),
-                ),
-              ),
-              _buildButton(),
-            ],
-          )),
+      body: PageView(children: <Widget>[
+        new CustomScrollView(
+          primary: false,
+          slivers: <Widget>[
+            new SliverPadding(
+              padding: const EdgeInsets.all(15.0),
+              sliver: new SliverFixedExtentList(
+                  itemExtent: 200.0,
+                  delegate: SliverChildListDelegate(
+                    listGraphs(list, context),
+                  )),
+            ),
+          ],
+        ),
+      ]),
       drawer: _buildDrawer(),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  Widget _buildButton() {
-    return RaisedButton(
-      padding: EdgeInsets.all(20.0),
-      elevation: 0.0,
-      child: Text("More Info",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: "Rajdhani",
-              color: Colors.white,
-              fontSize: 25.0)),
-      shape: RoundedRectangleBorder(),
-      onPressed: () {
-        //event
-        if (globals.recent.indexOf(globals.global_name) == -1)
-          globals.recent.add(globals.global_name);
-        if (globals.recent.length > 5) {
-          globals.recent.removeLast();
-        }
-
-        //     Navigator.push(
-        //         context, MaterialPageRoute(builder: (context) => MapsPage()));
-        //
-      },
-      color: Colors.lightBlue,
-      splashColor: Colors.blue,
-    );
+  List<Widget> listGraphs(List<Detail_graph> graphs, BuildContext context) {
+    List<Widget> listElementWidgetList = new List<Widget>();
+    if (graphs != null) {
+      var lengthOfList = graphs.length;
+      for (int i = 0; i < lengthOfList; i++) {
+        print(graphs[i].type);
+        Detail_graph graph = graphs[i];
+        // Image URL
+        //var imageURL = food.imagePath;
+        // List item created with an image of the poster
+        var listItem = Container(
+            child: new Padding(
+          padding: EdgeInsets.only(bottom: 20),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: new GestureDetector(
+                  onTap: () {
+                    globals.global_name = graph.type;
+                    Navigator.push(
+                        context,
+                        // change this from StatsPage to the detailstatspage or whatever
+                        new MaterialPageRoute(
+                          builder: (_) => new StatsPage(),
+                        ));
+                  },
+                  child: Stack(children: <Widget>[
+                    new Padding(
+                      padding: EdgeInsets.only(
+                          top: 35, left: 15, right: 15, bottom: 10),
+                      child: SegmentsLineChart.withSampleData(),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Center(
+                              child: Text(graph.type,
+                                  style: TextStyle(
+                                      fontFamily: "Quicksand",
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold))),
+                        ),
+                      ],
+                    )
+                  ]))),
+        ));
+        listElementWidgetList.add(listItem);
+        print(listElementWidgetList.length);
+      }
+    }
+    return listElementWidgetList;
   }
 }
