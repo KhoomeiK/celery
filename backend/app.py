@@ -76,11 +76,13 @@ def item(item, id):
 @app.route('/biz/ingredients/<item>/<data>/<id>')
 def ingredient(item, data, id):
 	if item == 'sustainability':
-		item = 'sust'
+		nitem = 'sust'
+	else:
+		nitem = 'profit'
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 
-	cursor.execute("SELECT ingredients FROM %s WHERE name = '%s'" % (id, item))
+	cursor.execute("SELECT ingredients FROM %s WHERE name = '%s'" % (id, nitem))
 	results = cursor.fetchall()[0][0]
 
 	ingredients = []
