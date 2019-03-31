@@ -35,17 +35,6 @@ class Food_icon {
       this.dishSustData,
       this.dishBuysColor,
       this.dishBuysData);
-
-  Food_icon.fromIngredient(List<Ingredient> ingredientList); //may be able to create an ingredientList without this class.
-
-}
-
-class Ingredient {
-  String ingredientName;
-  bool color;
-  List<double> data;
-
-  Ingredient(this.ingredientName, this.color, this.data);
 }
 
 Future<Food_icon> getDishes(String id) async {
@@ -91,8 +80,6 @@ Future<Food_icon> getDishDetail(String item, String id) async {
   if (response.statusCode == 200) {
     var jsonResponse = convert.jsonDecode(response.body);
     var data = jsonResponse[item];
-    print(jsonResponse);
-    print(data);
 
     List<dynamic> list1 = data["profit"];
     dishProfitData = list1.cast<double>().toList();
@@ -134,4 +121,37 @@ Future<Food_icon> getDishDetail(String item, String id) async {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
+}
+
+Future<Ingredient> getIngredient(
+    String foodItem, String ingredient, String type, String id) async {
+  var url = "http://35.235.92.165/biz/ingredients/${foodItem}/${type}/${id}";
+  final response = await http.get(url);
+  List<double> data;
+  bool color;
+
+  if (response.statusCode == 200) {
+    var jsonResponse = convert.jsonDecode(response.body);
+    List<dynamic> list1 = jsonResponse[ingredient];
+    data = list1.cast<double>().toList();
+    print(data);
+
+    var ingredientPrediction = data[data.length - 1] - data[data.length - 2];
+    if (ingredientPrediction > 0) {
+      color = true;
+    } else {
+      color = false;
+    }
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post');
+  }
+}
+
+class Ingredient {
+  String ingredientName;
+  bool color;
+  List<double> data;
+
+  Ingredient(this.ingredientName, this.color, this.data);
 }
