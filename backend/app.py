@@ -117,3 +117,7 @@ def ingredient(item, data, id):
 	}
 }
 '''
+
+'''
+POST endpoint to accept new menu items
+'''
