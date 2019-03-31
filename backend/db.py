@@ -28,7 +28,7 @@ CREATE TABLE garden (
  buys INT[]
 );
 
-INSERT INTO olives (type, name, ingredients, profit, sust, buys) 
+INSERT INTO garden (type, name, ingredients, profit, sust, buys) 
 VALUES ('item', 'Linguini', 
 	'{{"tomato", 2}, {"egg", 1}, {"wheat", 5}}',
 	'{2.4, 3.5, 3.0, 4.1, 2.9}',
