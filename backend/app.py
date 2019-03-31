@@ -94,8 +94,9 @@ def ingredient(item, data, id):
 	for i in ingredients:
 		out[i] = []
 		cursor.execute('SELECT %s FROM %s' % (data, i))
-		for j in cursor.fetchall():
-			out[i].append(j[0])
+		x = cursor.fetchall()
+		for j in range(len(x) - 12, len(x)):
+			out[i].append(x[j][0])
 
 	return jsonify(out)
 
