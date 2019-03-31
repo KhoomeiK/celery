@@ -16,7 +16,7 @@ class AnalysisPageState extends State<AnalysisPage> {
 int index = 0;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
-      currentIndex: 0,
+      currentIndex: 1,
       onTap: (index) {
         this.index = index;
         if (index == 0) {

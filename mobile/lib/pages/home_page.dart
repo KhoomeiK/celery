@@ -117,12 +117,14 @@ class HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: AppBar(
         title: new Padding(
+            child: new Center(
             child: new Text("Menu",
                 style: new TextStyle(
                     fontWeight: FontWeight.normal,
                     fontFamily: "Rajdhani",
                     fontStyle: FontStyle.normal,
                     fontSize: 25.0)),
+            ),
             padding: const EdgeInsets.only(left: 0.0)),
         actions: <Widget>[
           Container(
