@@ -78,13 +78,12 @@ def ingredient(item, data, id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 
-	cursor.execute('SELECT ingredients FROM %s' % id)
-	results = cursor.fetchall()
+	cursor.execute("SELECT ingredients FROM %s WHERE name = '%s'" % (id, item))
+	results = cursor.fetchall()[0][0]
+
 	ingredients = []
-	for i in results[0]:
-		print(i)
-		print(i[0][0])
-		ingredients.append(i[0][0])
+	for i in results:
+		ingredients.append(i[0])
 
 	conn.close()
 
@@ -93,10 +92,10 @@ def ingredient(item, data, id):
 	out = {}
 
 	for i in ingredients:
+		out[i] = []
 		cursor.execute('SELECT %s FROM %s' % (data, i))
-		out[i] = cursor.fetchall()
-		print(i)
-		print(out[i])
+		for j in cursor.fetchall():
+			out[i].append(j[0])
 
 	return jsonify(out)
 
