@@ -152,20 +152,9 @@ List<Category> list = globals.three;
             height: 200.0,
             child: new ListView(
               children: <Widget>[
-                ListTile(
-                  title: new Text(
-                  globals.chosen.company, )
-                ),
-                ListTile(
-                  title: new Text(
-                    globals.chosen.phone,
-                  ),
-                ),
-                ListTile(
-                  title: new Text(
-                    NumberFormat().format(globals.chosen.rating),
-                  )
-                ),
+                buildName(),
+                buildPhone(),
+                buildRating(),
               ],
             )
           ),
@@ -178,6 +167,29 @@ List<Category> list = globals.three;
     );
   }
 
+Widget buildName(){
+  return Padding(
+    padding: EdgeInsets.all(20.0),
+      child: new Center( 
+        child: new Text ("Company\n " + globals.chosen.company)),
+              );
+}
+
+Widget buildPhone(){
+  return Padding(
+    padding: EdgeInsets.all(20.0),
+      child: new Center( 
+        child: new Text ("Phone Number\n " + globals.chosen.phone)),
+              );
+}
+
+Widget buildRating(){
+  return Padding(
+    padding: EdgeInsets.all(20.0),
+      child: new Center( 
+        child: new Text ("Rating\n  " + NumberFormat().format(globals.chosen.rating))),
+              );
+}
  
 }
 

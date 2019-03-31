@@ -10,11 +10,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   transparent_image: ^1.0.0
   charts_flutter: ^0.6.0
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 4b00476cbc3ae961e6b2d973ec4d58cc2ef68932
 
 
 dev_dependencies:

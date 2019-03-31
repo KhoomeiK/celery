@@ -10,6 +10,7 @@ import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
 import 'profile.dart';
+import 'company_info.dart';
 
 class ProducePage extends StatefulWidget {
   State createState() => new ProducePageState();
@@ -220,7 +221,7 @@ List<Food_icon> list = globals.global;
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (_) => new StatsPage(),
+                      builder: (_) => new CompanyInfoPage(),
                   ));},
             child: new FadeInImage.memoryNetwork(
               placeholder: kTransparentImage,
