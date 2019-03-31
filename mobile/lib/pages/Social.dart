@@ -185,6 +185,8 @@ List<Category> list = globals.three;
           ),
           child: new GestureDetector(
             onTap: () {{
+                globals.global_company = companySeller.name;
+                globals.checkChosen();
                 Navigator.push(
                   context,
                   new MaterialPageRoute(

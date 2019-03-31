@@ -4,6 +4,7 @@ import 'food_icon.dart';
 import 'category.dart';
 import 'detail_graph.dart';
 import 'chart.dart';
+import 'profile.dart';
 
 bool isLoggedIn = false;
 bool isConnected = false;
@@ -53,7 +54,23 @@ List<Detail_graph> graphs = [Detail_graph("Profit", [
     )];
 
 String global_name;
+String global_company;
 List<String> recent = [];
+
+List<Profile> produce = [Profile("Sprouts", "https://about.sprouts.com/wp-content/uploads/2018/04/Supermarket-News.jpg", "6265576858", 4.7), Profile("99 Ranch", "https://www.99ranch.com/img/CMSImages/GrandOpeningPhotos.jpg", "6265523458", 4.8), Profile("Subway", "https://media-cdn.tripadvisor.com/media/photo-s/09/64/37/fe/subway.jpg", "7273092790", 4.5)];
+List<Profile> meats = [Profile("KFC", "https://www.joc.com/sites/default/files/field_feature_image/KFC_0.png", "6291827473", 4.5), Profile("Popeyes", "https://fortunedotcom.files.wordpress.com/2016/11/popeyes-chicken-businesswire.jpg", "6268718737", 4.6)];
+List<Profile> utensils = [Profile("Smith Flatware", "https://images.food52.com/tYiMtEUOw2v5iY1TUk9gKIDVtVo=/470x470/3cebd127-aaf3-46b0-a0c9-95bc3466e7cb--2018-0625_berghoff_leo-pink-utensil-set-skimmer-serving-ladle-tongs-pasta-spoon-serving-spoon_rocky-luten_005_1-.jpg", "7273639072", 5.0)];
+List<Profile> chosenNigga = [];
+Profile chosen;
+
+checkChosen(){
+  if (global_company=="Produce")
+  chosenNigga = produce;
+  if (global_company=="Meat")
+  chosenNigga = meats;
+  if (global_company=="Utensils")
+  chosenNigga = utensils;
+}
 
 getPictureURL(String s){
   for (int i =0; i< global.length; i++){

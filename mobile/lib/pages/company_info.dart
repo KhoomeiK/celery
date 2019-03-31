@@ -8,16 +8,18 @@ import 'recents.dart';
 import 'stats_page.dart';
 import 'globals.dart' as globals;
 import 'analysis.dart';
-import 'Social.dart';
 import 'profile.dart';
+import 'category.dart';
+import 'produce.dart';
+import 'package:intl/intl.dart';
 
-class ProducePage extends StatefulWidget {
-  State createState() => new ProducePageState();
+class CompanyInfoPage extends StatefulWidget {
+  State createState() => new CompanyInfoPageState();
 }
 
-class ProducePageState extends State<ProducePage> {
+class CompanyInfoPageState extends State<CompanyInfoPage> {
 int index = 0;
-List<Food_icon> list = globals.global;
+List<Category> list = globals.three;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
       currentIndex: 0,
@@ -123,7 +125,7 @@ List<Food_icon> list = globals.global;
     return new Scaffold(
       appBar: AppBar(
         title: new Padding(
-            child: new Text("Recommended",
+            child: new Text("Suppliers",
                 style: new TextStyle(
                     fontWeight: FontWeight.normal,
                     fontFamily: "Rajdhani",
@@ -134,104 +136,48 @@ List<Food_icon> list = globals.global;
           Container(
               padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new SocialPage(),
-                  ));
-                },
+                onTap: () {},
                 child: Icon(Icons.account_box),
               )),
           SizedBox(width: 17.0),
         ],
       ),
-      body:
-      //         Container(
-      //   padding: EdgeInsets.all(20.0),
-      //   child: Column(
-      //     children: <Widget>[
-      //       Expanded(
-      //     child: SizedBox(
-      //       height: 200.0,
-      //       child: new ListView.builder(
-      //         scrollDirection: Axis.vertical,
-      //         itemCount: globals.chosenNigga.length,
-      //         itemBuilder: (BuildContext ctxt, int index) {
-      //           return new Center( 
-      //             child: ListTile(
-      //               title: new Text(globals.chosenNigga[index].company),
-      //               onTap: () {
-      //                 globals.chosen = globals.chosenNigga[index];
-      //                 // Navigator.push(context,
-      //                 //  MaterialPageRoute(builder: (context) => StatsPage()));
-      //               },
-      //               ));
-      //           },
-      //       ),
-      //     ),
-      //   ),
-        
-      // ],
-      // ),
-      // ),
-      PageView(children: <Widget>[
-        new CustomScrollView(
-                      primary: false,
-                      slivers: <Widget>[
-                        new SliverPadding(
-                          padding: const EdgeInsets.all(10.0),
-                          sliver: new SliverGrid.count(
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
-                            crossAxisCount: 1,
-                            children:
-                                listSup(globals.chosenNigga, context),
-                          ),
-                        ),
-                      ],
+      body: 
+        Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+          child: SizedBox(
+            height: 200.0,
+            child: new ListView(
+              children: <Widget>[
+                ListTile(
+                  title: new Text(
+                  globals.chosen.company, )
+                ),
+                ListTile(
+                  title: new Text(
+                    globals.chosen.phone,
+                  ),
+                ),
+                ListTile(
+                  title: new Text(
+                    NumberFormat().format(globals.chosen.rating),
+                  )
+                ),
+              ],
+            )
+          ),
         ),
+        
       ],
-      ),
+    )),
       drawer: _buildDrawer(),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  List<Widget> listSup(
-    List<Profile> bro, BuildContext context) {
-  // Children list for the list.
-  List<Widget> listElementWidgetList = new List<Widget>();
-  if (bro != null) {
-    var lengthOfList = bro.length;
-    for (int i = 0; i < lengthOfList; i++) {
-     Profile temp = bro[i];
-      // Image URL
-      var imageURL = temp.imagePath;
-      // List item created with an image of the poster
-      var listItem = new GridTile(
-          footer: new GridTileBar(
-            backgroundColor: Colors.black45,
-            title: new Text(temp.company),
-          ),
-          child: new GestureDetector(
-            onTap: () {
-              globals.chosen = temp;
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new StatsPage(),
-                  ));},
-            child: new FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: imageURL,
-              fit: BoxFit.cover,
-            ),
-          ));
-      listElementWidgetList.add(listItem);
-    }
-  }
-  return listElementWidgetList;
-}
-}
  
+}
+

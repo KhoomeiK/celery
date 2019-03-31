@@ -38,7 +38,7 @@ class SegmentsLineChart extends StatelessWidget {
       new LinearSales(4, 100, [8, 3, 2, 3], 2.0),
       new LinearSales(5, 90, [8, 3, 2, 3], 2.0),
       new LinearSales(6, 75, [2, 2], 2.0),
-    ];
+    ]; 
 
     // Generate 2 shades of each color so that we can style the line segments.
     final red = charts.MaterialPalette.red.makeShades(2);
@@ -60,6 +60,7 @@ class SegmentsLineChart extends StatelessWidget {
     ];
   }
 }
+
 
 /// Sample linear data type.
 class LinearSales {
