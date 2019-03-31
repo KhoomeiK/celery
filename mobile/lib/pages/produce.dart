@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'food_icon.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'recents.dart';
 import 'stats_page.dart';
@@ -12,6 +11,7 @@ import 'Social.dart';
 import 'profile.dart';
 import 'company_info.dart';
 import 'home_page.dart';
+import 'package:celery/api.dart';
 
 class ProducePage extends StatefulWidget {
   State createState() => new ProducePageState();

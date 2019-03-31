@@ -10,6 +10,7 @@ import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
 import 'add_item.dart';
+import 'package:celery/api.dart';
 
 class HomePage extends StatefulWidget {
   State createState() => new HomePageState();
@@ -17,7 +18,9 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int index = 0;
-  List<Food_icon> list = globals.global;
+
+  //Future<List<Food_icon>> list = getDishes("multi");
+
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
       currentIndex: 0,
@@ -118,12 +121,12 @@ class HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: new Padding(
             child: new Center(
-            child: new Text("Menu",
-                style: new TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontFamily: "Rajdhani",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 25.0)),
+              child: new Text("Menu",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontFamily: "Rajdhani",
+                      fontStyle: FontStyle.normal,
+                      fontSize: 25.0)),
             ),
             padding: const EdgeInsets.only(left: 0.0)),
         actions: <Widget>[
@@ -145,18 +148,31 @@ class HomePageState extends State<HomePage> {
       ),
       body: PageView(
         children: <Widget>[
-          new CustomScrollView(
-            primary: false,
-            slivers: <Widget>[
-              new SliverPadding(
-                padding: const EdgeInsets.all(15.0),
-                sliver: new SliverFixedExtentList(
-                    itemExtent: 200.0,
-                    delegate: SliverChildListDelegate(
-                      listFoods(list, context),
-                    )),
-              ),
-            ],
+          new FutureBuilder(
+            future: getDishes("multi"),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Food_icon> list = snapshot.data;
+                return new CustomScrollView(
+                  primary: false,
+                  slivers: <Widget>[
+                    new SliverPadding(
+                      padding: const EdgeInsets.all(15.0),
+                      sliver: new SliverFixedExtentList(
+                          itemExtent: 200.0,
+                          delegate: SliverChildListDelegate(
+                            listFoods(list, context),
+                          )),
+                    ),
+                  ],
+                );
+              } else if (snapshot.hasError) {
+              } else {
+                return Center(
+                  child: CircularProgressIndicator()
+                );
+              }
+            },
           ),
         ],
       ),
@@ -165,13 +181,13 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> listFoods(List<Food_icon> food, BuildContext context) {
+  List<Widget> listFoods(List<Food_icon> foodList, BuildContext context) {
     // Children list for the list.
     List<Widget> listElementWidgetList = new List<Widget>();
-    if (food != null) {
-      var lengthOfList = list.length;
+    if (foodList != null) {
+      var lengthOfList = foodList.length;
       for (int i = 0; i < lengthOfList; i++) {
-        Food_icon food = list[i];
+        Food_icon food = foodList[i];
         // Image URL
         var imageURL = food.imagePath;
         // List item created with an image of the poster

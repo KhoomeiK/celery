@@ -37,9 +37,10 @@ class Food_icon {
       this.dishBuysData);
 }
 
-Future<Food_icon> getDishes(String id) async {
+Future<List<Food_icon>> getDishes(String id) async {
   var url = "http://35.235.92.165/biz/menu/${id}";
   final response = await http.get(url);
+  List<Food_icon> arr = []; 
 
   String name;
   String imagePath;
@@ -50,20 +51,22 @@ Future<Food_icon> getDishes(String id) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> items = convert.jsonDecode(response.body);
-
     items.forEach((key, item) {
       name = key;
       imagePath = item["link"]; //May be renamed in api
       sust = item["sust"];
       profit = item["profit"];
       invest = (profit + sust) / 2;
+      arr.add(Food_icon(name, imagePath, restName, profit, sust, invest));
     });
+
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
 
-  return Food_icon(name, imagePath, restName, profit, sust, invest);
+  //var foodIcon = Food_icon(name, imagePath, restName, profit, sust, invest);
+  return arr;
 }
 
 Future<Food_icon> getDishDetail(String item, String id) async {
