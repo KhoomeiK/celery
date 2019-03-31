@@ -94,8 +94,7 @@ def ingredient(item, data, id):
 	for i in ingredients:
 		out[i] = []
 		cursor.execute('SELECT %s FROM %s' % (data, i))
-		x = cursor.fetchall()[-12]
-		print(x)
+		x = cursor.fetchall()[-12:]
 		for j in range(0, len(x)):
 			out[i].append(x[j][0])
 
@@ -131,7 +130,7 @@ POST endpoint to accept new menu items
 @app.route('/biz/new/<id>') # post req new menu item
 def new(id):
 	ingredients = request.ingredients
-	print(ingredients)
+	print(ingredients) 
 	profit, sust, buys = [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]
 	conn = psycopg2.connect(conn_str, dbname='foods')
 	cursor = conn.cursor()
