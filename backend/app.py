@@ -1,26 +1,38 @@
 from flask import Flask
+import psycopg2
 
 app = Flask(__name__)
+conn_str = "host='localhost' user='postgres' password='password'"
 
 @app.route('/biz/menu/<id>')
 def menu(id):
-	# find all type: item in db id
-	# compare last 2 data points in parsed profit & sust
-    return [id]
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	
+	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
+	data = cursor.fetchall()
+	
+	items = {}
+	for i in data:
+		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2]}
+	
+	conn.close()
+	return str(items)
+
 '''
 {
 	items: [
 		Linguini: {
-				profit: True,
-				sust: False
+				profit: 0.5,
+				sust: 0.5
 			},
 		Tiramisu: {
-				profit: False,
-				sust: False
+				profit: 0.5,
+				sust: 0.5
 			},
 		Minestrone: {
-				profit: True,
-				sust: True
+				profit: 0.5,
+				sust: 0.5
 			}
 		]
 }
@@ -28,10 +40,19 @@ def menu(id):
 
 @app.route('/biz/item/<item>/<id>')
 def item(item, id):
-	# find item in db id
-	# get composite prof, sust, and buys of item
-	# parse arrays
-    return [item, id]
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	
+	cursor.execute("SELECT profit, sust, buys FROM %s WHERE type = 'item' AND name = '%s'" % (id, item))
+	data = cursor.fetchall()
+	
+	return str({
+		item: {
+			'profit': data[0][0],
+			'sust': data[0][1],
+			'buys': data[0][2]
+		}
+	})
 
 '''
 {
@@ -54,11 +75,22 @@ def item(item, id):
 
 @app.route('/biz/ingredients/<item>/<data>/<id>')
 def ingredient(item, data, id):
-	# find item in table of id
-	# parse item data into ingredient list
-	# find temporal data of each ingredient (last is prediction)
-	# compare last 2 data points to determine color
-    return [item, data, id]
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+
+	cursor.execute('SELECT ingredients FROM %s' % id)
+	ingredients = cursor.fetchall()
+
+	conn.close()
+
+	conn = psycopg2.connect(conn_str, dbname='foods')
+	out = {}
+
+	for i in ingredients:
+		conn.execute('SELECT %s FROM %s' % (data, i))
+		out[i] = conn.fetchall()
+
+	return str(out)
 
 '''
 {
@@ -78,5 +110,3 @@ def ingredient(item, data, id):
 	}
 }
 '''
-
-app.run()

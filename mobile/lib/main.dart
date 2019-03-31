@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30.0,
-                            fontFamily: "Rajdhani"))
+                            fontFamily: "Quicksand"))
                   ],
                 ))),
             Expanded(
@@ -103,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
-                        fontFamily: "Rajdhani"),
+                        fontFamily: "Quicksand"),
                   )
                 ],
               ),
@@ -125,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(width: 25.0),
               Text("Hi, Ryan",
                   style: TextStyle(
-                      fontFamily: "Rajdhani",
+                      fontFamily: "Quicksand",
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold))
             ],
@@ -133,34 +133,34 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         ListTile(
             title: Text("Vibrational Levels",
-                style: TextStyle(fontFamily: "Rajdhani")),
+                style: TextStyle(fontFamily: "Quicksand")),
             onTap: () {
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => VibPage()));
             }),
         ListTile(
             title: Text("Haptic Patterns",
-                style: TextStyle(fontFamily: "Rajdhani")),
+                style: TextStyle(fontFamily: "Quicksand")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => HapticPage()));
             }),
         ListTile(
             title: Text("Rerun Tutorial",
-                style: TextStyle(fontFamily: "Rajdhani")),
+                style: TextStyle(fontFamily: "Quicksand")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => TutorialPage()));
             }),
         ListTile(
-            title: Text("Settings", style: TextStyle(fontFamily: "Rajdhani")),
+            title: Text("Settings", style: TextStyle(fontFamily: "Quicksand")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => SettingsPage()));
             }),
-        ListTile(title: Text("Help", style: TextStyle(fontFamily: "Rajdhani"))),
+        ListTile(title: Text("Help", style: TextStyle(fontFamily: "Quicksand"))),
         ListTile(
-            title: Text("About Us", style: TextStyle(fontFamily: "Rajdhani"))),
+            title: Text("About Us", style: TextStyle(fontFamily: "Quicksand"))),
       ],
     ));
   }

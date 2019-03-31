@@ -10,8 +10,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   transparent_image: ^1.0.0
   charts_flutter: ^0.6.0
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4b00476cbc3ae961e6b2d973ec4d58cc2ef68932
 
 
 dev_dependencies:
@@ -29,6 +32,18 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: fonts/Quicksand-Regular.ttf
+        - asset: fonts/Quicksand-Medium.ttf
+          weight: 400
+        - asset: fonts/Quicksand-Light.ttf
+          weight: 100
+        - asset: fonts/Quicksand-Bold.ttf
+          weight: 900
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
