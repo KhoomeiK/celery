@@ -22,7 +22,7 @@ int index = 0;
 List<Food_icon> list = globals.global;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
-      currentIndex: 0,
+      currentIndex: 2,
       onTap: (index) {
         this.index = index;
         if (index == 0) {
