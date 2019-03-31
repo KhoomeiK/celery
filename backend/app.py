@@ -83,7 +83,7 @@ def ingredient(item, data, id):
 
 	ingredients = []
 	for i in results:
-		ingredients.append(i[0])
+		ingredients.append(i)
 
 	conn.close()
 
