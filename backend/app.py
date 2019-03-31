@@ -79,7 +79,12 @@ def ingredient(item, data, id):
 	cursor = conn.cursor()
 
 	cursor.execute('SELECT ingredients FROM %s' % id)
-	ingredients = cursor.fetchall()
+	results = cursor.fetchall()
+	ingredients = []
+	for i in results[0]:
+		print(i)
+		print(i[0][0])
+		ingredients.append(i[0][0])
 
 	conn.close()
 
@@ -90,6 +95,8 @@ def ingredient(item, data, id):
 	for i in ingredients:
 		cursor.execute('SELECT %s FROM %s' % (data, i))
 		out[i] = cursor.fetchall()
+		print(i)
+		print(out[i])
 
 	return jsonify(out)
 
