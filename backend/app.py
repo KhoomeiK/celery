@@ -43,14 +43,14 @@ def item(item, id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 	
-	cursor.execute("SELECT profit, sust, buys FROM %s WHERE type = 'item' AND name = %s" % (id, item))
+	cursor.execute("SELECT profit, sust, buys FROM %s WHERE type = 'item' AND name = '%s'" % (id, item))
 	data = cursor.fetchall()
 	
 	return str({
 		item: {
-			profit: data[0][0],
-			sust: data[0][1],
-			buys: data[0][2]
+			'profit': data[0][0],
+			'sust': data[0][1],
+			'buys': data[0][2]
 		}
 	})
 
