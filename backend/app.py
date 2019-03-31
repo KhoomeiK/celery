@@ -75,14 +75,10 @@ def item(item, id):
 
 @app.route('/biz/ingredients/<item>/<data>/<id>')
 def ingredient(item, data, id):
-	if item == 'sustainability':
-		nitem = 'sust'
-	else:
-		nitem = 'profit'
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 
-	cursor.execute("SELECT ingredients FROM %s WHERE name = '%s'" % (id, nitem))
+	cursor.execute("SELECT ingredients FROM %s WHERE name = '%s'" % (id, item))
 	results = cursor.fetchall()[0][0]
 
 	ingredients = []
@@ -148,9 +144,16 @@ def new(id):
 			profit[j] = profit[j] + x[j][0]
 			sust[j] = sust[j] + x[j][1]
 
-	print()
-	arr = str(ingredients).replace("'", '"').replace("[", "{").replace("]", "}")
-	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \"%s\", '%s', '%s', '%s')" 
-		% (id, req['name'], arr, profit, sust, buys))
 	conn.close()
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES (item, %s, %s, %s, %s, %s)', (id, req['name'], arr, profit, sust, buys))
 
+	# arr = str(ingredients).replace("'", '\\"').replace("[", "{").replace("]", "}")
+	# profit = str(profit).replace("[", "{").replace("]", "}")
+	# sust = str(sust).replace("[", "{").replace("]", "}")
+	# buys = str(buys).replace("[", "{").replace("]", "}")
+	# cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \'%s\', '%s', '%s', '%s')" 
+		# % (id, req['name'], arr, profit, sust, buys))
+	conn.close()
+	return 'Item succesfully created'
