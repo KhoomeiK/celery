@@ -75,6 +75,8 @@ def item(item, id):
 
 @app.route('/biz/ingredients/<item>/<data>/<id>')
 def ingredient(item, data, id):
+	if item == 'sustainability':
+		item = 'sust'
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 
