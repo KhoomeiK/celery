@@ -149,7 +149,7 @@ def new(id):
 			sust[j] = sust[j] + x[j][1]
 
 	print()
-	arr = str(x['ingredients']).replace("'", '"').replace("[", "{").replace("]", "}")
+	arr = str(ingredients).replace("'", '"').replace("[", "{").replace("]", "}")
 	cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \"%s\", '%s', '%s', '%s')" 
 		% (id, req['name'], arr, profit, sust, buys))
 	conn.close()
