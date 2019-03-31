@@ -18,12 +18,20 @@ def main():
 if __name__ == "__main__":
 	main()
 
+'''
+CREATE TABLE olives (
+ type TEXT not null,
+ name TEXT,
+ ingredients TEXT[],
+ profit TEXT[],
+ sust TEXT[],
+ buys TEXT[],
+);
 
-# CREATE TABLE olives (
-#  type TEXT not null,
-#  name TEXT,
-#  ingredients TEXT[],
-#  profit TEXT[],
-#  sust TEXT[],
-#  buys TEXT[],
-# );
+INSERT INTO olives (type, name, ingredients, profit, sust, buys) 
+VALUES ('item', 'Linguini', 
+	'{{"tomato", 2}, {"egg", 1}, {"wheat", 5}}',
+	'{2.4, 3.5, 3.0, 4.1, 2.9}',
+	'{1, 4, 2, 3, 3}', 
+	'{14, 19, 12, 9, 21}');
+'''

@@ -1,12 +1,23 @@
 from flask import Flask
+import psycopg2
 
 app = Flask(__name__)
+conn_str = "host='localhost' user='postgres' password='password'"
 
 @app.route('/biz/menu/<id>')
 def menu(id):
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
+	data = cursor.fetchall()
+	items = {}
+	for i in data:
+		items[i[0]] = {'profit': float(i[1][-1]) - float(i[1][-2]), 'sust': float(i[2][-1]) - float(i[2][-2])}
+                
 	# find all type: item in db id
 	# compare last 2 data points in parsed profit & sust
-    return str({'linguini':[id]})
+	conn.close()
+	return str(items)
 '''
 {
 	items: [
