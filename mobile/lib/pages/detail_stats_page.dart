@@ -9,6 +9,7 @@ import 'home_page.dart';
 import 'analysis.dart';
 import 'chart.dart';
 import "detail_graph.dart";
+import 'Social.dart';
 
 class DetailPage extends StatefulWidget {
   State createState() => new DetailPageState();
@@ -46,8 +47,8 @@ class DetailPageState extends State<DetailPage> {
               context, MaterialPageRoute(builder: (context) => AnalysisPage()));
         }
         if (index == 2) {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => BluetoothPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SocialPage()));
         }
       },
       items: <BottomNavigationBarItem>[
@@ -60,8 +61,8 @@ class DetailPageState extends State<DetailPage> {
           title: new Text("Statistics"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.restaurant_menu),
-          title: new Text("Full Menu"),
+         icon: new Icon(Icons.people),
+          title: new Text("Suppliers"),
         ),
       ],
     );
@@ -142,15 +143,6 @@ class DetailPageState extends State<DetailPage> {
                     fontStyle: FontStyle.normal,
                     fontSize: 25.0)),
             padding: const EdgeInsets.only(left: 0.0)),
-        actions: <Widget>[
-          Container(
-              padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Icon(Icons.account_box),
-              )),
-          SizedBox(width: 17.0),
-        ],
       ),
       body: PageView(children: <Widget>[
         new CustomScrollView(

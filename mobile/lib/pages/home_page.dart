@@ -9,6 +9,7 @@ import 'stats_page.dart';
 import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
+import 'add_item.dart';
 
 class HomePage extends StatefulWidget {
   State createState() => new HomePageState();
@@ -27,8 +28,8 @@ class HomePageState extends State<HomePage> {
               context, MaterialPageRoute(builder: (context) => AnalysisPage()));
         }
         if (index == 2) {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => BluetoothPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SocialPage()));
         }
       },
       items: <BottomNavigationBarItem>[
@@ -41,8 +42,8 @@ class HomePageState extends State<HomePage> {
           title: new Text("Statistics"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.restaurant_menu),
-          title: new Text("Full Menu"),
+          icon: new Icon(Icons.people),
+          title: new Text("Suppliers"),
         ),
       ],
     );
@@ -116,7 +117,7 @@ class HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: AppBar(
         title: new Padding(
-            child: new Text("Recommended",
+            child: new Text("Menu",
                 style: new TextStyle(
                     fontWeight: FontWeight.normal,
                     fontFamily: "Rajdhani",
@@ -129,12 +130,13 @@ class HomePageState extends State<HomePage> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (_) => new SocialPage(),
-                      ));
+                    context,
+                    new MaterialPageRoute(
+                      builder: (_) => new AddItemPage(),
+                    ),
+                  );
                 },
-                child: Icon(Icons.account_box),
+                child: Icon(Icons.add),
               )),
           SizedBox(width: 17.0),
         ],
@@ -228,8 +230,7 @@ class HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                   fontSize: 27.0,
                                   fontFamily: "Quicksand",
-                                  fontWeight: FontWeight.w500
-                                  )))
+                                  fontWeight: FontWeight.w500)))
                     ],
                   ))),
         ));

@@ -6,6 +6,7 @@ import 'recents.dart';
 import 'food_icon.dart';
 import 'globals.dart' as globals;
 import 'home_page.dart';
+import 'Social.dart';
 
 class AnalysisPage extends StatefulWidget {
   State createState() => new AnalysisPageState();
@@ -28,8 +29,8 @@ int index = 0;
           //     context, MaterialPageRoute(builder: (context) => MainPage2()));
         }
         if (index == 2) {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => BluetoothPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SocialPage()));
         }
       },
       items: <BottomNavigationBarItem>[
@@ -42,8 +43,8 @@ int index = 0;
           title: new Text("Statistics"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.restaurant_menu),
-          title: new Text("Full Menu"),
+          icon: new Icon(Icons.people),
+          title: new Text("Suppliers"),
         ),
       ],
     );
@@ -130,15 +131,6 @@ int index = 0;
                     fontStyle: FontStyle.normal,
                     fontSize: 20.0)),
             padding: const EdgeInsets.only(left: 0.0)),
-        actions: <Widget>[
-          Container(
-              padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Icon(Icons.account_box),
-              )),
-          SizedBox(width: 17.0),
-        ],
       ),
       body: Center( child: Column(
           children: <Widget>[
