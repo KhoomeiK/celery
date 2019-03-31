@@ -15,13 +15,14 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class DetailPage extends StatefulWidget {
   String name;
+  String typeOfGraph;
   static String imageURL;
   static String rest;
   static double cost;
   static String foodName;
   List<String> ingredients;
-  DetailPage(this.name);
-  State createState() => new DetailPageState(name);
+  DetailPage(this.name, this.typeOfGraph);
+  State createState() => new DetailPageState(name, typeOfGraph);
 }
 
 class DetailPageState extends State<DetailPage> {
@@ -30,9 +31,10 @@ class DetailPageState extends State<DetailPage> {
   String imageURL;
   String rest;
   double cost;
+  String typeOfGraph;
   List<String> ingredients;
 
-  DetailPageState(this.name);
+  DetailPageState(this.name, this.typeOfGraph);
 
   List<Widget> finalGraphs = new List<Widget>();
 
@@ -153,21 +155,18 @@ class DetailPageState extends State<DetailPage> {
       ),
       body: PageView(children: <Widget>[
         new FutureBuilder(
-            future: getIngredients(this.name, "profit", "multi"),
+            future: getIngredients(this.name, this.typeOfGraph == "Profit" ? "profit" : "sust", "multi"),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print("I get here");
                 List<Ingredient> preProcessed = snapshot.data;
                 List<LinearSales> list1 = [];
-                List<LinearSales> list2 = [];
                 for (int i = 0; i < preProcessed.length; i++) {
                   for (int j = 0; j <= 11; j++) {
                     list1.add(LinearSales(
                         j, preProcessed[i].data[j].toInt(), [8, 3, 2, 3], 2.0));
                   }
-                  print("Before set state");
                   finalGraphs.add(listGraphs(list1,
-                      "Profit: " + preProcessed[i].ingredientName, context));
+                      this.typeOfGraph + ": " + preProcessed[i].ingredientName, context));
                   list1 = [];
                 }
                 return new CustomScrollView(
@@ -222,7 +221,7 @@ class DetailPageState extends State<DetailPage> {
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
                           colorFn: (LinearSales sales, _) =>
-                              sales.year <= 13 ? green[1] : red[0],
+                              (sales.year > 9 && graphs[10].sales > graphs[11].sales) ? red[0] : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
                               sales.year <= 9 ? null : sales.dashPattern,
                           strokeWidthPxFn: (LinearSales sales, _) =>

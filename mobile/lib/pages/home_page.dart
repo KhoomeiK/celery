@@ -222,7 +222,7 @@ class HomePageState extends State<HomePage> {
                               borderRadius: new BorderRadius.circular(20.0),
                               child: new FadeInImage.memoryNetwork(
                                 placeholder: kTransparentImage,
-                                image: imageURL,
+                                image: imageURL == null ? "https://imgs.tuts.dragoart.com/how-to-draw-a-krabby-patty_1_000000021433_3.png" : imageURL,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -237,7 +237,7 @@ class HomePageState extends State<HomePage> {
                                         colors: [
                                   Colors.grey.withOpacity(0.0),
                                   //green = 0x802ecc71
-                                  Color(0x802ecc71),
+                                  food.investIndex > 0.2 ? Color(0x802ecc71) : Colors.red,
                                 ],
                                         stops: [
                                   0.0,

@@ -21,7 +21,7 @@ class StatsPage extends StatefulWidget {
   static String foodName;
   List<String> ingredients;
   StatsPage(this.name);
-    State createState() => new StatsPageState(name);
+  State createState() => new StatsPageState(name);
 }
 
 class StatsPageState extends State<StatsPage> {
@@ -31,7 +31,7 @@ class StatsPageState extends State<StatsPage> {
   String rest;
   double cost;
   List<String> ingredients;
-  
+
   List<Detail_graph> list = globals.graphs;
 
   StatsPageState(this.name);
@@ -160,7 +160,7 @@ class StatsPageState extends State<StatsPage> {
                 List<LinearSales> list1 = [];
                 List<LinearSales> list2 = [];
                 List<LinearSales> list3 = [];
-                for (int i = 0; i <= 4; i++) {
+                for (int i = 0; i <= 11; i++) {
                   list1.add(LinearSales(
                       i,
                       preProcessed.dishProfitData[i].toInt(),
@@ -189,11 +189,8 @@ class StatsPageState extends State<StatsPage> {
                     ),
                   ],
                 );
-              }
-              else {
-                return new Center(
-                  child: new CircularProgressIndicator()
-                );
+              } else {
+                return new Center(child: new CircularProgressIndicator());
               }
             }),
       ]),
@@ -231,7 +228,7 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(this.name),
+                        builder: (_) => new DetailPage(this.name, "Profit"),
                       ));
                 },
                 child: Stack(children: <Widget>[
@@ -243,10 +240,12 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) =>
-                              sales.year <= 4 ? green[1] : red[0],
+                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
+                                  graphs[10].sales > graphs[11].sales)
+                              ? red[0]
+                              : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year <= 2 ? null : sales.dashPattern,
+                              sales.year > 10 ? sales.dashPattern : null,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
@@ -292,7 +291,8 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(this.name),
+                        builder: (_) =>
+                            new DetailPage(this.name, "Sustainability"),
                       ));
                 },
                 child: Stack(children: <Widget>[
@@ -304,10 +304,12 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) =>
-                              sales.year <= 4 ? green[1] : red[0],
+                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
+                                  graphs[10].sales > graphs[11].sales)
+                              ? red[0]
+                              : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year <= 2 ? null : sales.dashPattern,
+                              sales.year > 10 ? sales.dashPattern : null,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
@@ -353,7 +355,8 @@ class StatsPageState extends State<StatsPage> {
                       context,
                       // change this from StatsPage to the detailstatspage or whatever
                       new MaterialPageRoute(
-                        builder: (_) => new DetailPage(this.name),
+                        builder: (_) =>
+                            new DetailPage(this.name, "Sustainability"),
                       ));
                 },
                 child: Stack(children: <Widget>[
@@ -365,10 +368,12 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) =>
-                              sales.year <= 4 ? green[1] : red[0],
+                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
+                                  graphs[10].sales > graphs[11].sales)
+                              ? red[0]
+                              : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year <= 2 ? null : sales.dashPattern,
+                              sales.year > 10 ? sales.dashPattern : null,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,

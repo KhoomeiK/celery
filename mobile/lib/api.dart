@@ -159,6 +159,21 @@ Future<List<Ingredient>> getIngredients(
   return ingredientList;
 }
 
+postIngredients(String id, String dishName, List<String> ingredients) async{
+    var url = "http://35.235.92.165/biz/new/${id}";
+    var body = convert.jsonEncode({'name':dishName, 'ingredients':ingredients});
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json', 
+      'Accept': 'application/json',
+    };
+
+    http.post(url, body: body, headers: headers).then((response){
+      print(response.statusCode);
+      print(response.body);
+    });
+}
+
 class Ingredient {
   String ingredientName;
   bool color;
