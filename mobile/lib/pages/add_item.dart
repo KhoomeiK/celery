@@ -56,17 +56,17 @@ class AddItemPageState extends State<AddItemPage> {
   void _submit() {
     final form = formKey.currentState;
     if (form.validate()) {
-      form.save();
+      form.save();/*
       for (int i = 0; i < globals.global.length; i++) {
         if (globals.global[i].name == newItem) {
           repeat = true;
           _showSnackBar2();
         }
-      }
+      
       if (!repeat) {
         globals.global.add(new Food_icon(newItem, "", "", 0.0, []));
         _showSnackBar();
-      }
+      }*/
     }
   }
 

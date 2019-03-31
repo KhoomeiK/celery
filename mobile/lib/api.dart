@@ -37,9 +37,10 @@ class Food_icon {
       this.dishBuysData);
 }
 
-Future<Food_icon> getDishes(String id) async {
+Future<List<Food_icon>> getDishes(String id) async {
   var url = "http://35.235.92.165/biz/menu/${id}";
   final response = await http.get(url);
+  List<Food_icon> arr = []; 
 
   String name;
   String imagePath;
@@ -50,20 +51,22 @@ Future<Food_icon> getDishes(String id) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> items = convert.jsonDecode(response.body);
-
     items.forEach((key, item) {
       name = key;
       imagePath = item["link"]; //May be renamed in api
       sust = item["sust"];
       profit = item["profit"];
       invest = (profit + sust) / 2;
+      arr.add(Food_icon(name, imagePath, restName, profit, sust, invest));
     });
+
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
 
-  return Food_icon(name, imagePath, restName, profit, sust, invest);
+  //var foodIcon = Food_icon(name, imagePath, restName, profit, sust, invest);
+  return arr;
 }
 
 Future<Food_icon> getDishDetail(String item, String id) async {
@@ -89,6 +92,8 @@ Future<Food_icon> getDishDetail(String item, String id) async {
 
     List<dynamic> list3 = data["buys"];
     dishBuysData = list3.cast<int>().toList();
+
+    print("Hello");
 
     print(dishProfitData);
     var profitPrediction = dishProfitData[dishProfitData.length - 1] -
@@ -123,25 +128,29 @@ Future<Food_icon> getDishDetail(String item, String id) async {
   }
 }
 
-Future<Ingredient> getIngredient(
-    String foodItem, String ingredient, String type, String id) async {
+Future<List<Ingredient>> getIngredients(
+    String foodItem, String type, String id) async {
   var url = "http://35.235.92.165/biz/ingredients/${foodItem}/${type}/${id}";
   final response = await http.get(url);
-  List<double> data;
-  bool color;
+  List<Ingredient> ingredientList = [];
 
   if (response.statusCode == 200) {
-    var jsonResponse = convert.jsonDecode(response.body);
-    List<dynamic> list1 = jsonResponse[ingredient];
-    data = list1.cast<double>().toList();
-    print(data);
+    Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
+    jsonResponse.forEach((key, item) {
+      List<double> data;
+      bool color;
+      String ingredientName = key;
+      List<dynamic> list1 = item;
+      data = list1.cast<double>().toList();
 
-    var ingredientPrediction = data[data.length - 1] - data[data.length - 2];
-    if (ingredientPrediction > 0) {
-      color = true;
-    } else {
-      color = false;
-    }
+      var ingredientPrediction = data[data.length - 1] - data[data.length - 2];
+      if (ingredientPrediction > 0) {
+        color = true;
+      } else {
+        color = false;
+      }
+      ingredientList.add(Ingredient(ingredientName, color, data));
+    });
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');

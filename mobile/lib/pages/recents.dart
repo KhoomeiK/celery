@@ -152,7 +152,7 @@ int index = 0;
                     onTap: () {
                       globals.global_name = globals.recent[index];
                       Navigator.push(context,
-                       MaterialPageRoute(builder: (context) => StatsPage()));
+                       MaterialPageRoute(builder: (context) => StatsPage("")));
                     },
                     ));
                 },
