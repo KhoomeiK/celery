@@ -94,8 +94,9 @@ def ingredient(item, data, id):
 	for i in ingredients:
 		out[i] = []
 		cursor.execute('SELECT %s FROM %s' % (data, i))
-		for j in cursor.fetchall():
-			out[i].append(j[0])
+		x = cursor.fetchall()
+		for j in range(len(x) - 12, len(x)):
+			out[i].append(x[j][0])
 
 	return jsonify(out)
 
@@ -126,4 +127,12 @@ POST endpoint to accept new menu items
 }
 '''
 
-# @app.route('/biz/new')
+@app.route('/biz/new/<id>') # post req new menu item
+def new(id):
+	print(request.ingredients)
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+
+	cursor.execute("INSERT INTO %s (type, name, ingredients) VALUES('item', %s, %s)" 
+		% (id, request.name, request.ingredients))
+	conn.close()
