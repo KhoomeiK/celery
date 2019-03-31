@@ -226,7 +226,7 @@ class HomePageState extends State<HomePage> {
                               borderRadius: new BorderRadius.circular(20.0),
                               child: new FadeInImage.memoryNetwork(
                                 placeholder: kTransparentImage,
-                                image: imageURL == null ? "https://imgs.tuts.dragoart.com/how-to-draw-a-krabby-patty_1_000000021433_3.png" : imageURL,
+                                image: imageURL == null ? "https://steamykitchen.com/wp-content/uploads/2017/10/vietnamese-chicken-pho-ga-3692-640x480.jpg" : imageURL,
                                 fit: BoxFit.cover,
                               ),
                             ),

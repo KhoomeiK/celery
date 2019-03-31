@@ -155,13 +155,6 @@ class StatsPageState extends State<StatsPage> {
         new FutureBuilder(
             future: getDishDetail(this.name, "multi"),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              return new CircularProgressIndicator();
-                  case ConnectionState.active:
-                  case ConnectionState.done:
-              }
               if (snapshot.hasData) {
                 Food_icon preProcessed = snapshot.data;
                 List<LinearSales> list1 = [];
@@ -247,12 +240,10 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
-                                  graphs[10].sales > graphs[11].sales)
-                              ? red[0]
-                              : green[1],
+                          colorFn: (LinearSales sales, _) =>
+                              (sales.year > 9 && graphs[10].sales > graphs[11].sales) ? red[0] : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year > 10 ? sales.dashPattern : null,
+                              sales.year <= 9 ? null : sales.dashPattern,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
@@ -311,12 +302,10 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
-                                  graphs[10].sales > graphs[11].sales)
-                              ? red[0]
-                              : green[1],
+                          colorFn: (LinearSales sales, _) =>
+                              (sales.year > 9 && graphs2[10].sales > graphs2[11].sales) ? red[0] : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year > 10 ? sales.dashPattern : null,
+                              sales.year <= 9 ? null : sales.dashPattern,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
@@ -375,12 +364,10 @@ class StatsPageState extends State<StatsPage> {
                         new charts.Series<LinearSales, int>(
                           id: 'Dash Pattern Change',
                           // Light shade for even years, dark shade for odd.
-                          colorFn: (LinearSales sales, _) => (sales.year > 10 &&
-                                  graphs[10].sales > graphs[11].sales)
-                              ? red[0]
-                              : green[1],
+                          colorFn: (LinearSales sales, _) =>
+                              (sales.year > 9 && graphs3[10].sales > graphs3[11].sales) ? red[0] : green[1],
                           dashPatternFn: (LinearSales sales, _) =>
-                              sales.year > 10 ? sales.dashPattern : null,
+                              sales.year <= 9 ? null : sales.dashPattern,
                           strokeWidthPxFn: (LinearSales sales, _) =>
                               sales.strokeWidthPx,
                           domainFn: (LinearSales sales, _) => sales.year,
