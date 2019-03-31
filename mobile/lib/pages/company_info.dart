@@ -46,8 +46,8 @@ List<Category> list = globals.three;
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -167,26 +167,71 @@ List<Category> list = globals.three;
 
 Widget buildName(){
   return Padding(
-    padding: EdgeInsets.all(20.0),
-      child: new Center( 
-        child: new Text ("Company\n " + globals.chosen.company)),
-              );
+                          padding: EdgeInsets.all(20.0),
+                          child:  
+                          Column(
+                            children: <Widget> [
+                        new Text("Company:",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                        new Text(globals.chosen.company,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                            ]
+                            ),
+                            );
 }
 
 Widget buildPhone(){
   return Padding(
-    padding: EdgeInsets.all(20.0),
-      child: new Center( 
-        child: new Text ("Phone Number\n " + globals.chosen.phone)),
-              );
+                          padding: EdgeInsets.all(20.0),
+                          child:  
+                          Column(
+                            children: <Widget> [
+                        new Text("Phone Number:",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                        new Text(globals.chosen.phone,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                            ]
+                            ),
+                            );
 }
 
 Widget buildRating(){
   return Padding(
-    padding: EdgeInsets.all(20.0),
-      child: new Center( 
-        child: new Text ("Rating\n  " + NumberFormat().format(globals.chosen.rating))),
-              );
+                          padding: EdgeInsets.all(20.0),
+                          child:  
+                          Column(
+                            children: <Widget> [
+                        new Text("Rating:",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                        new Text(globals.chosen.rating.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 21.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500)),
+                            ]
+                            ),
+                            );
 }
  
 }

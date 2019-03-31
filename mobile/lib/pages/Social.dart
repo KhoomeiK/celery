@@ -44,8 +44,8 @@ List<Category> list = globals.three;
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),

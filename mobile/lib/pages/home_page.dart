@@ -41,8 +41,8 @@ class HomePageState extends State<HomePage> {
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -201,6 +201,10 @@ class HomePageState extends State<HomePage> {
               ),
               child: new GestureDetector(
                   onTap: () {
+                    if (globals.recent.indexOf(food.name)==-1)
+                    {
+                      globals.recent.add(food.name);
+                    }
                     print(food.name);
                     print("food above");
                     Navigator.push(

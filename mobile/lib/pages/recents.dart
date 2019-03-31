@@ -41,8 +41,8 @@ int index = 0;
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -149,11 +149,11 @@ int index = 0;
                 return new Center( 
                   child: ListTile(
                     title: new Text(globals.recent[index]),
-                    onTap: () {
-                      globals.global_name = globals.recent[index];
-                      Navigator.push(context,
-                       MaterialPageRoute(builder: (context) => StatsPage("")));
-                    },
+                    // onTap: () {
+                    //   globals.global_name = globals.recent[index];
+                    //   Navigator.push(context,
+                    //    MaterialPageRoute(builder: (context) => StatsPage("")));
+                    // },
                     ));
                 },
             ),
