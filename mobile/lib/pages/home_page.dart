@@ -15,8 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-int index = 0;
-List<Food_icon> list = globals.global;
+  int index = 0;
+  List<Food_icon> list = globals.global;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
       currentIndex: 0,
@@ -66,30 +66,26 @@ List<Food_icon> list = globals.global;
           ),
         ),
         ListTile(
-            title: Text("Recently Cooked",
-                style: TextStyle(fontFamily: "Rajdhani"),
-                ),
+            title: Text(
+              "Recently Cooked",
+              style: TextStyle(fontFamily: "Rajdhani"),
+            ),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => RecentsPage()));
-            }
-          ),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RecentsPage()));
+            }),
         ListTile(
-            title: Text("---",
-                style: TextStyle(fontFamily: "Rajdhani")),
+            title: Text("---", style: TextStyle(fontFamily: "Rajdhani")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Stats2Page()));
-            }
-          ),
+            }),
         ListTile(
-            title: Text("---",
-                style: TextStyle(fontFamily: "Rajdhani")),
+            title: Text("---", style: TextStyle(fontFamily: "Rajdhani")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Stats3Page()));
-            }
-          ),
+            }),
         ListTile(
             title: Text("Settings", style: TextStyle(fontFamily: "Rajdhani")),
             onTap: () {
@@ -97,19 +93,17 @@ List<Food_icon> list = globals.global;
               //     MaterialPageRoute(builder: (context) => Stats4Page()));
             }),
         ListTile(
-          title: Text("Help", style: TextStyle(fontFamily: "Rajdhani")),
-          onTap: () {
+            title: Text("Help", style: TextStyle(fontFamily: "Rajdhani")),
+            onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Stats5Page()));
-            }
-          ),
+            }),
         ListTile(
             title: Text("About Us", style: TextStyle(fontFamily: "Rajdhani")),
             onTap: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Stats6Page()));
-            }
-            ),
+            }),
       ],
     ));
   }
@@ -135,150 +129,114 @@ List<Food_icon> list = globals.global;
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new SocialPage(),
-                  ));
+                      context,
+                      new MaterialPageRoute(
+                        builder: (_) => new SocialPage(),
+                      ));
                 },
                 child: Icon(Icons.account_box),
               )),
           SizedBox(width: 17.0),
         ],
       ),
-      body: 
-        PageView(children: <Widget>[
-        new CustomScrollView(
-                      primary: false,
-                      slivers: <Widget>[
-                        new SliverPadding(
-                          padding: const EdgeInsets.all(10.0),
-                          sliver: new SliverGrid.count(
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
-                            crossAxisCount: 2,
-                            children:
-                                listFoods(list, context),
-                          ),
-                        ),
-                      ],
-                    
-        // _buildRow1(),
-        // _buildRow2(),
-    ),
-      ],),
+      body: PageView(
+        children: <Widget>[
+          new CustomScrollView(
+            primary: false,
+            slivers: <Widget>[
+              new SliverPadding(
+                padding: const EdgeInsets.all(15.0),
+                sliver: new SliverFixedExtentList(
+                    itemExtent: 200.0,
+                    delegate: SliverChildListDelegate(
+                      listFoods(list, context),
+                    )),
+              ),
+            ],
+          ),
+        ],
+      ),
       drawer: _buildDrawer(),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  List<Widget> listFoods(
-    List<Food_icon> food, BuildContext context) {
-  // Children list for the list.
-  List<Widget> listElementWidgetList = new List<Widget>();
-  if (food != null) {
-    var lengthOfList = list.length;
-    for (int i = 0; i < lengthOfList; i++) {
-     Food_icon food = list[i];
-      // Image URL
-      var imageURL = food.imagePath;
-      // List item created with an image of the poster
-      var listItem = new GridTile(
-          footer: new GridTileBar(
-            backgroundColor: Colors.black45,
-            title: new Text(food.name),
-          ),
-          child: new GestureDetector(
-            onTap: () {
-              globals.global_name = food.name;
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (_) => new StatsPage(),
-                  ));},
-            child: new FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: imageURL,
-              fit: BoxFit.cover,
-            ),
-          ));
-      listElementWidgetList.add(listItem);
-    }
-  }
-  return listElementWidgetList;
-}
-}
- 
-_buildRow1() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                 Stack(
-                  children: <Widget>[
-                    Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),
-                       Center(child: Text("someText")),
-                            ],
+  List<Widget> listFoods(List<Food_icon> food, BuildContext context) {
+    // Children list for the list.
+    List<Widget> listElementWidgetList = new List<Widget>();
+    if (food != null) {
+      var lengthOfList = list.length;
+      for (int i = 0; i < lengthOfList; i++) {
+        Food_icon food = list[i];
+        // Image URL
+        var imageURL = food.imagePath;
+        // List item created with an image of the poster
+        var listItem = Container(
+            child: new Padding(
+          padding: EdgeInsets.only(bottom: 20),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: new GestureDetector(
+                  onTap: () {
+                    globals.global_name = food.name;
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (_) => new StatsPage(),
+                        ));
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          new Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: ClipRRect(
+                              borderRadius: new BorderRadius.circular(20.0),
+                              child: new FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: imageURL,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          new ClipRRect(
+                            borderRadius: new BorderRadius.circular(20.0),
+                            child: new Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: FractionalOffset.topCenter,
+                                        end: FractionalOffset.bottomCenter,
+                                        colors: [
+                                  Colors.grey.withOpacity(0.0),
+                                  //green = 0x802ecc71
+                                  Color(0x802ecc71),
+                                ],
+                                        stops: [
+                                  0.0,
+                                  0.9
+                                ]))),
+                          )
+                        ],
                       ),
-            ),
-                  
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-                   
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
+                      new Padding(
+                          padding: EdgeInsets.only(top: 129.0, left: 30),
+                          child: Text(food.name,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 27.0,
+                                  fontFamily: "Quicksand",
+                                  fontWeight: FontWeight.w500
+                                  )))
+                    ],
+                  ))),
+        ));
 
+        listElementWidgetList.add(listItem);
+      }
+    }
+    return listElementWidgetList;
+  }
 }
-
-
-_buildRow2() {
-    return new Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-                 child:
-                  Material(
-                    borderRadius: new BorderRadius.circular(4.0),
-                     elevation: 2.0,
-      
-                     child: new Image.network(
-                'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                    fit: BoxFit.cover,
-                  width: 167.0,
-                height: 175.0,),
-                 ),),
-            Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child:
-                     Material(
-                   borderRadius: new BorderRadius.circular(4.0),
-                   elevation: 2.0,
-       
-                     child: new Image.network(
-                     'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/roast-turkey-pho-ck.jpg?itok=Vf6k6W0d',
-                     fit: BoxFit.cover,
-                       width: 167.0,
-                         height: 175.0,),
-       ),),
-       ]);
-
-}
-
