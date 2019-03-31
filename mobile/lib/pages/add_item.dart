@@ -1,6 +1,7 @@
 // IS THIS FILE STILL NEEDED???
 
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'food_icon.dart';
 import 'stats_page.dart';
 import "package:flutter/services.dart";
@@ -18,7 +19,11 @@ class AddItemPageState extends State<AddItemPage> {
   final formKey = new GlobalKey<FormState>();
   dynamic _borderRadius = new BorderRadius.circular(10.0);
   String newItem;
+  String ingredient;
   bool repeat = false;
+
+  List<String> ingredients = [];
+
   final GlobalKey<ScaffoldState> _scaffoldstate =
       new GlobalKey<ScaffoldState>();
 
@@ -30,10 +35,18 @@ class AddItemPageState extends State<AddItemPage> {
           SizedBox(height: 10.0),
           TextFormField(
             decoration: new InputDecoration(
-                labelText: "Menu Item",
+                labelText: "Name of the dish",
                 border: OutlineInputBorder(borderRadius: _borderRadius)),
             validator: (val) => (val == null) ? 'Empty' : null,
             onSaved: (val) => newItem = val,
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 30)),
+          TextFormField(
+            decoration: new InputDecoration(
+                labelText: "Ingredient",
+                border: OutlineInputBorder(borderRadius: _borderRadius)),
+            validator: (val) => (val == null) ? 'Empty' : null,
+            onSaved: (val) => ingredient = val,
           ),
         ],
       ),
@@ -167,22 +180,47 @@ class AddItemPageState extends State<AddItemPage> {
   }
 
   Widget _buildButton() {
-    return RaisedButton(
-      padding: EdgeInsets.all(20.0),
-      elevation: 0.0,
-      child: Text("GO",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: "Rajdhani",
-              color: Colors.white,
-              fontSize: 25.0)),
-      shape: RoundedRectangleBorder(borderRadius: _borderRadius),
-      onPressed: () {
-        _submit();
-
-      },
-      color: Colors.lightBlue,
-      splashColor: Colors.blue,
+    return Column(
+      children: <Widget>[
+        CupertinoButton(
+          padding: EdgeInsets.all(20.0),
+          //elevation: 0.0,
+          child: Text("Add",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Quicksand",
+                  color: Colors.white,
+                  fontSize: 20.0)),
+          //shape: RoundedRectangleBorder(borderRadius: _borderRadius),
+          onPressed: () {
+            setState(() {
+              final form = formKey.currentState;
+              form.save();
+              print(ingredient);
+              ingredients.add(ingredient);
+            });
+          },
+          color: Colors.green,
+          //splashColor: Colors.blue,
+        ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+        CupertinoButton(
+          padding: EdgeInsets.all(20.0),
+          //elevation: 0.0,
+          child: Text("Confirm",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Quicksand",
+                  color: Colors.white,
+                  fontSize: 20.0)),
+          //shape: RoundedRectangleBorder(borderRadius: _borderRadius),
+          onPressed: () {
+            _submit();
+          },
+          color: Colors.green,
+          //splashColor: Colors.blue,
+        ),
+      ],
     );
   }
 
@@ -195,7 +233,7 @@ class AddItemPageState extends State<AddItemPage> {
       key: _scaffoldstate,
       appBar: AppBar(
         title: new Padding(
-            child: new Text("Recents",
+            child: new Text("Add Item",
                 style: new TextStyle(
                     fontWeight: FontWeight.normal,
                     fontFamily: "Rajdhani",
@@ -209,14 +247,31 @@ class AddItemPageState extends State<AddItemPage> {
           children: <Widget>[
             SizedBox(height: 9.0),
             _buildForm(),
-            SizedBox(height: 9.0),
-            SizedBox(height: 19.0),
+            SizedBox(height: 28.0),
+            Expanded(
+                child: new ListView.builder(
+                    itemCount: ingredients.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return Column(
+                        children: <Widget>[
+                          new Text(ingredients[index],
+                              style: new TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: "Rajdhani",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 22.0)),
+                          Padding(
+                              padding: EdgeInsets.only(bottom: 10.0)),
+                          Divider(
+                            height: 1.5,
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(bottom: 10.0)),
+                        ],
+                      );
+                    })),
             _buildButton(),
             // _buildButton2(),
-            Flex(
-              direction: Axis.vertical,
-              children: <Widget>[],
-            )
           ],
         ),
       ),

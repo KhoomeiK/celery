@@ -9,12 +9,12 @@ def menu(id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 	
-	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
+	cursor.execute("SELECT name, profit, sust, link FROM %s WHERE type = 'item'" % id)
 	data = cursor.fetchall()
 	
 	items = {}
 	for i in data:
-		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2]}
+		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2], 'link': i[3]}
 	
 	conn.close()
 	return jsonify(items)
@@ -117,3 +117,21 @@ def ingredient(item, data, id):
 	}
 }
 '''
+
+'''
+POST endpoint to accept new menu items
+{
+	name: 'Salad',
+	ingredients: ['tomato', 'lettuce', 'celery']
+}
+'''
+
+@app.route('/biz/new/<id>') # post req new menu item
+def new(id):
+	print(request.ingredients)
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+
+	cursor.execute("INSERT INTO %s (type, name, ingredients) VALUES('item', %s, %s)" 
+		% (id, request.name, request.ingredients))
+	conn.close()
