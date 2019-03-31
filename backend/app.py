@@ -132,6 +132,8 @@ POST endpoint to accept new menu items
 # THIS NEEDS TO BE TESTED
 @app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
 def new(id):
+	print(request)
+	print(request['ingredients'])
 	req = request.get_json()
 	ingredients = req.ingredients
 	print(ingredients) 
