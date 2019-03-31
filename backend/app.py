@@ -147,7 +147,7 @@ def new(id):
 	conn.close()
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO test (type, name, ingredients, profit, sust, buys) VALUES (\'item\', %s, %s, %s, %s, %s)', (req['name'], ingredients, profit, sust, buys))
+	cursor.execute('INSERT INTO multi (type, name, ingredients, profit, sust, buys) VALUES (\'item\', %s, %s, %s, %s, %s)', (req['name'], ingredients, profit, sust, buys))
 
 	# arr = str(ingredients).replace("'", '\\"').replace("[", "{").replace("]", "}")
 	# profit = str(profit).replace("[", "{").replace("]", "}")
@@ -155,5 +155,6 @@ def new(id):
 	# buys = str(buys).replace("[", "{").replace("]", "}")
 	# cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \'%s\', '%s', '%s', '%s')" 
 		# % (id, req['name'], arr, profit, sust, buys))
+	conn.commit()
 	conn.close()
 	return 'Item succesfully created'
