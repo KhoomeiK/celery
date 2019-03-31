@@ -14,7 +14,7 @@ def menu(id):
 	
 	items = {}
 	for i in data:
-		items[i[0]] = {'profit': float(i[1][-1]) - float(i[1][-2]), 'sust': float(i[2][-1]) - float(i[2][-2])}
+		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2]}
 	
 	conn.close()
 	return str(items)
@@ -23,16 +23,16 @@ def menu(id):
 {
 	items: [
 		Linguini: {
-				profit: True,
-				sust: False
+				profit: 0.5,
+				sust: 0.5
 			},
 		Tiramisu: {
-				profit: False,
-				sust: False
+				profit: 0.5,
+				sust: 0.5
 			},
 		Minestrone: {
-				profit: True,
-				sust: True
+				profit: 0.5,
+				sust: 0.5
 			}
 		]
 }
@@ -75,11 +75,22 @@ def item(item, id):
 
 @app.route('/biz/ingredients/<item>/<data>/<id>')
 def ingredient(item, data, id):
-	# find item in table of id
-	# parse item data into ingredient list
-	# find temporal data of each ingredient (last is prediction)
-	# compare last 2 data points to determine color
-	return {[item, data, id]}
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+
+	cursor.execute('SELECT ingredients FROM %s' % id)
+	ingredients = cursor.fetchall()
+
+	conn.close()
+
+	conn = psycopg2.connect(conn_str, dbname='foods')
+	out = {}
+
+	for i in ingredients:
+		conn.execute('SELECT %s FROM %s' % (data, i))
+		out[i] = conn.fetchall()
+
+	return str(out)
 
 '''
 {

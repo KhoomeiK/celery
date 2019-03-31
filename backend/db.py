@@ -19,13 +19,13 @@ if __name__ == "__main__":
 	main()
 
 '''
-CREATE TABLE olives (
+CREATE TABLE garden (
  type TEXT not null,
  name TEXT,
  ingredients TEXT[],
- profit TEXT[],
- sust TEXT[],
- buys TEXT[],
+ profit FLOAT[],
+ sust FLOAT[],
+ buys INT[]
 );
 
 INSERT INTO olives (type, name, ingredients, profit, sust, buys) 
