@@ -22,7 +22,7 @@ int index = 0;
 List<Category> list = globals.three;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
-      currentIndex: 0,
+      currentIndex: 2,
       onTap: (index) {
         this.index = index;
         if (index == 0) {
@@ -44,8 +44,8 @@ List<Category> list = globals.three;
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -62,8 +62,9 @@ List<Category> list = globals.three;
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
-              SizedBox(width: 40.0),
+             SizedBox(width: 20.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
+              SizedBox(width: 20.0),
               Text("Celery",
                   style: TextStyle(
                       fontFamily: "Rajdhani",

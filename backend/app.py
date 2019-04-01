@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import psycopg2
 
 app = Flask(__name__)
@@ -9,12 +9,12 @@ def menu(id):
 	conn = psycopg2.connect(conn_str, dbname='users')
 	cursor = conn.cursor()
 	
-	cursor.execute("SELECT name, profit, sust FROM %s WHERE type = 'item'" % id)
+	cursor.execute("SELECT name, profit, sust, link FROM %s WHERE type = 'item'" % id)
 	data = cursor.fetchall()
 	
 	items = {}
 	for i in data:
-		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2]}
+		items[i[0]] = {'profit': i[1][-1] - i[1][-2], 'sust': i[2][-1] - i[2][-2], 'link': i[3]}
 	
 	conn.close()
 	return jsonify(items)
@@ -83,7 +83,7 @@ def ingredient(item, data, id):
 
 	ingredients = []
 	for i in results:
-		ingredients.append(i[0])
+		ingredients.append(i)
 
 	conn.close()
 
@@ -94,8 +94,9 @@ def ingredient(item, data, id):
 	for i in ingredients:
 		out[i] = []
 		cursor.execute('SELECT %s FROM %s' % (data, i))
-		for j in cursor.fetchall():
-			out[i].append(j[0])
+		x = cursor.fetchall()[-12:]
+		for j in range(0, len(x)):
+			out[i].append(x[j][0])
 
 	return jsonify(out)
 
@@ -117,3 +118,43 @@ def ingredient(item, data, id):
 	}
 }
 '''
+
+'''
+POST endpoint to accept new menu items
+{
+	name: 'Salad',
+	ingredients: ['tomato', 'lettuce', 'celery']
+}
+'''
+
+# THIS NEEDS TO BE TESTED
+@app.route('/biz/new/<id>', methods = ['POST']) # post req new menu item
+def new(id):
+	req = request.get_json()
+	ingredients = req['ingredients']
+	profit, sust, buys = [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]
+	conn = psycopg2.connect(conn_str, dbname='foods')
+	cursor = conn.cursor()
+
+	for i in ingredients:
+		cursor.execute('SELECT profit, sust FROM %s' % i)
+		x = cursor.fetchall()[-12:]
+		print(x)
+		for j in range(0, len(x)):
+			profit[j] = profit[j] + x[j][0]
+			sust[j] = sust[j] + x[j][1]
+
+	conn.close()
+	conn = psycopg2.connect(conn_str, dbname='users')
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO multi (type, name, ingredients, profit, sust, buys) VALUES (\'item\', %s, %s, %s, %s, %s)', (req['name'], ingredients, profit, sust, buys))
+
+	# arr = str(ingredients).replace("'", '\\"').replace("[", "{").replace("]", "}")
+	# profit = str(profit).replace("[", "{").replace("]", "}")
+	# sust = str(sust).replace("[", "{").replace("]", "}")
+	# buys = str(buys).replace("[", "{").replace("]", "}")
+	# cursor.execute("INSERT INTO %s (type, name, ingredients, profit, sust, buys) VALUES('item', '%s', \'%s\', '%s', '%s', '%s')" 
+		# % (id, req['name'], arr, profit, sust, buys))
+	conn.commit()
+	conn.close()
+	return 'Item succesfully created'

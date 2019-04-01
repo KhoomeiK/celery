@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'food_icon.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'recents.dart';
 import 'stats_page.dart';
@@ -12,6 +11,7 @@ import 'Social.dart';
 import 'profile.dart';
 import 'company_info.dart';
 import 'home_page.dart';
+import 'package:celery/api.dart';
 
 class ProducePage extends StatefulWidget {
   State createState() => new ProducePageState();
@@ -22,7 +22,7 @@ int index = 0;
 List<Food_icon> list = globals.global;
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
-      currentIndex: 0,
+      currentIndex: 2,
       onTap: (index) {
         this.index = index;
         if (index == 0) {
@@ -44,8 +44,8 @@ List<Food_icon> list = globals.global;
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -62,8 +62,9 @@ List<Food_icon> list = globals.global;
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
-              SizedBox(width: 40.0),
+              SizedBox(width: 20.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
+              SizedBox(width: 20.0),
               Text("Celery",
                   style: TextStyle(
                       fontFamily: "Rajdhani",

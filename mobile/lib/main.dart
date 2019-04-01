@@ -29,14 +29,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => new _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  AssetImage s = AssetImage('assets/logo.png');
   @override
   void initState() {
     super.initState();
@@ -46,7 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
             context, MaterialPageRoute(builder: (context) => HomePage())));
   }
 
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -55,16 +53,13 @@ class _SplashScreenState extends State<SplashScreen> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-     SystemChrome.setPreferredOrientations(
+    SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return new Scaffold(
       backgroundColor: Colors.green,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(color: Colors.green),
-          ),
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
             Expanded(
                 flex: 2,
@@ -73,9 +68,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundColor: Colors.blueAccent,
                       radius: 80.0,
-                      // child: _image(),
+                      backgroundColor: Colors.green,
+                      child: _image(),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 15.0),
@@ -99,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     padding: EdgeInsets.only(top: 30.0),
                   ),
                   Text(
-                    "Food, made easy.",
+                    "Celery is hard. Food doesn't have to be.",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -114,6 +109,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+  _image() {
+    return Image.asset('assets/logo.png');
+  }
+
   Widget _buildDrawer() {
     return Drawer(
         child: ListView(
@@ -121,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen> {
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
               SizedBox(width: 25.0),
               Text("Hi, Ryan",
                   style: TextStyle(
@@ -158,7 +157,8 @@ class _SplashScreenState extends State<SplashScreen> {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => SettingsPage()));
             }),
-        ListTile(title: Text("Help", style: TextStyle(fontFamily: "Quicksand"))),
+        ListTile(
+            title: Text("Help", style: TextStyle(fontFamily: "Quicksand"))),
         ListTile(
             title: Text("About Us", style: TextStyle(fontFamily: "Quicksand"))),
       ],

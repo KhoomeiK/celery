@@ -10,6 +10,7 @@ import 'globals.dart' as globals;
 import 'analysis.dart';
 import 'Social.dart';
 import 'add_item.dart';
+import 'package:celery/api.dart';
 
 class HomePage extends StatefulWidget {
   State createState() => new HomePageState();
@@ -17,7 +18,9 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int index = 0;
-  List<Food_icon> list = globals.global;
+
+  //Future<List<Food_icon>> list = getDishes("multi");
+
   Widget _buildBottomNav() {
     return new BottomNavigationBar(
       currentIndex: 0,
@@ -38,8 +41,8 @@ class HomePageState extends State<HomePage> {
           title: new Text("Home"),
         ),
         new BottomNavigationBarItem(
-          icon: new Icon(Icons.trending_up),
-          title: new Text("Statistics"),
+          icon: new Icon(Icons.lightbulb_outline),
+          title: new Text("Insights"),
         ),
         new BottomNavigationBarItem(
           icon: new Icon(Icons.people),
@@ -56,8 +59,9 @@ class HomePageState extends State<HomePage> {
         DrawerHeader(
           child: Row(
             children: <Widget>[
-              Image.asset('assets/Logo.png', width: 70.0, height: 70.0),
-              SizedBox(width: 40.0),
+              SizedBox(width: 20.0),
+              Image.asset('assets/logo.png', width: 70.0, height: 70.0),
+              SizedBox(width: 20.0),
               Text("Celery",
                   style: TextStyle(
                       fontFamily: "Rajdhani",
@@ -117,12 +121,14 @@ class HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: AppBar(
         title: new Padding(
-            child: new Text("Menu",
-                style: new TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontFamily: "Rajdhani",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 25.0)),
+            child: new Center(
+              child: new Text("Menu",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontFamily: "Rajdhani",
+                      fontStyle: FontStyle.normal,
+                      fontSize: 25.0)),
+            ),
             padding: const EdgeInsets.only(left: 0.0)),
         actions: <Widget>[
           Container(
@@ -143,18 +149,34 @@ class HomePageState extends State<HomePage> {
       ),
       body: PageView(
         children: <Widget>[
-          new CustomScrollView(
-            primary: false,
-            slivers: <Widget>[
-              new SliverPadding(
-                padding: const EdgeInsets.all(15.0),
-                sliver: new SliverFixedExtentList(
-                    itemExtent: 200.0,
-                    delegate: SliverChildListDelegate(
-                      listFoods(list, context),
-                    )),
-              ),
-            ],
+          new FutureBuilder(
+            future: getDishes("multi"),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Food_icon> list = snapshot.data;
+                return new CustomScrollView(
+                  primary: false,
+                  slivers: <Widget>[
+                    new SliverPadding(
+                      padding: const EdgeInsets.all(15.0),
+                      sliver: new SliverFixedExtentList(
+                          itemExtent: 200.0,
+                          delegate: SliverChildListDelegate(
+                            listFoods(list, context),
+                          )),
+                    ),
+                  ],
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: CircularProgressIndicator()
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator()
+                );
+              }
+            },
           ),
         ],
       ),
@@ -163,13 +185,13 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> listFoods(List<Food_icon> food, BuildContext context) {
+  List<Widget> listFoods(List<Food_icon> foodList, BuildContext context) {
     // Children list for the list.
     List<Widget> listElementWidgetList = new List<Widget>();
-    if (food != null) {
-      var lengthOfList = list.length;
+    if (foodList != null) {
+      var lengthOfList = foodList.length;
       for (int i = 0; i < lengthOfList; i++) {
-        Food_icon food = list[i];
+        Food_icon food = foodList[i];
         // Image URL
         var imageURL = food.imagePath;
         // List item created with an image of the poster
@@ -182,11 +204,16 @@ class HomePageState extends State<HomePage> {
               ),
               child: new GestureDetector(
                   onTap: () {
-                    globals.global_name = food.name;
+                    if (globals.recent.indexOf(food.name)==-1)
+                    {
+                      globals.recent.add(food.name);
+                    }
+                    print(food.name);
+                    print("food above");
                     Navigator.push(
                         context,
                         new MaterialPageRoute(
-                          builder: (_) => new StatsPage(),
+                          builder: (_) => new StatsPage(food.name),
                         ));
                   },
                   child: Stack(
@@ -199,7 +226,7 @@ class HomePageState extends State<HomePage> {
                               borderRadius: new BorderRadius.circular(20.0),
                               child: new FadeInImage.memoryNetwork(
                                 placeholder: kTransparentImage,
-                                image: imageURL,
+                                image: imageURL == null ? "https://steamykitchen.com/wp-content/uploads/2017/10/vietnamese-chicken-pho-ga-3692-640x480.jpg" : imageURL,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -214,7 +241,7 @@ class HomePageState extends State<HomePage> {
                                         colors: [
                                   Colors.grey.withOpacity(0.0),
                                   //green = 0x802ecc71
-                                  Color(0x802ecc71),
+                                  food.investIndex > 0.2 ? Color(0x802ecc71) : Colors.red,
                                 ],
                                         stops: [
                                   0.0,
